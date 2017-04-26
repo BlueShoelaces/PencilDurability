@@ -19,6 +19,7 @@ public class PencilWriterSingleton implements PencilWriterSingletonInterface {
 	@Override
 	public void run(PaperInterface paper, PencilInterface pencil) {
 		pencil.writeOnPaper(paper, DEFAULT_TEXT);
+		paper.showPaper();
 	}
 
 }
