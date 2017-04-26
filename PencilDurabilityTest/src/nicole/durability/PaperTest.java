@@ -6,7 +6,9 @@ import java.io.*;
 
 import org.junit.*;
 
-public class PaperTest {
+import nicole.test.*;
+
+public class PaperTest extends TestHelper {
 
 	private PrintStream standardOut;
 	private ByteArrayOutputStream mockOutputStream;
@@ -24,8 +26,13 @@ public class PaperTest {
 	}
 
 	@Test
+	public void testImplementsInterface() throws Exception {
+		assertImplementsInterface(Paper.class, PaperInterface.class);
+	}
+
+	@Test
 	public void testPaperCanBeWrittenOn() throws Exception {
-		Paper paper = new Paper();
+		PaperInterface paper = new Paper();
 		String expectedStringWrittenToPaper = "To be or not to be?";
 		paper.write(expectedStringWrittenToPaper);
 
@@ -38,7 +45,7 @@ public class PaperTest {
 
 	@Test
 	public void testShowPaper_nothingWrittenYet() throws Exception {
-		Paper paper = new Paper();
+		PaperInterface paper = new Paper();
 		String expectedTextWritten = "";
 		paper.showPaper();
 
@@ -47,7 +54,7 @@ public class PaperTest {
 
 	@Test
 	public void testWritingOnPaperAppendsNewText() throws Exception {
-		Paper paper = new Paper();
+		PaperInterface paper = new Paper();
 
 		String firstTextWritten = "It is a truth universally acknowledged";
 		String secondTextWritten = " that a single man in possession of a good fortune";

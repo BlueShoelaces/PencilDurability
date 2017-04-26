@@ -7,7 +7,7 @@ import org.junit.runners.Suite.*;
 import nicole.durability.*;
 
 @RunWith(Suite.class)
-@SuiteClasses({ PaperTest.class })
+@SuiteClasses({ PaperTest.class, PencilTest.class })
 public class AllTests {
 
 }
