@@ -1,7 +1,6 @@
 package nicole.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
+import static org.junit.Assert.*;
 
 public class TestHelper {
 
@@ -12,5 +11,11 @@ public class TestHelper {
 
 		Class<?> actualInterface = interfaces[0];
 		assertSame(expectedInterface, actualInterface);
+	}
+
+	protected <T> void assertIsOfType(Class<T> type, Object object) {
+		assertNotNull("Expected " + type + " but was null", object);
+		assertTrue("Expected " + type + " but was " + object.getClass(),
+				type.isAssignableFrom(object.getClass()));
 	}
 }
