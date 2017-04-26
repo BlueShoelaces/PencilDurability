@@ -2,6 +2,6 @@ package nicole.durability;
 
 public interface PencilWriterSingletonInterface {
 
-	void run();
+	void run(PaperInterface paper, PencilInterface pencil);
 
 }

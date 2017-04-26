@@ -7,7 +7,7 @@ public class MockPencilWriterSingleton implements PencilWriterSingletonInterface
 	private boolean runWasCalled = false;
 
 	@Override
-	public void run() {
+	public void run(PaperInterface paper, PencilInterface pencil) {
 		this.runWasCalled = true;
 	}
 
