@@ -25,4 +25,14 @@ public class PencilTest extends TestHelper {
 		String actualTextWrittenToPaper = mockPaper.getTextWrittenToPaper();
 		assertEquals(expectedTextWrittenToPaper, actualTextWrittenToPaper);
 	}
+
+	@Test
+	public void testPencilIsCreatedWithDurability() {
+		int expectedDurability = 1500;
+		PencilInterface pencil = new Pencil(expectedDurability);
+		int actualDurability = pencil.getDurability();
+
+		assertEquals(expectedDurability, actualDurability);
+
+	}
 }

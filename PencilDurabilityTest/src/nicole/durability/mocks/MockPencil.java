@@ -21,4 +21,9 @@ public class MockPencil implements PencilInterface {
 		return this.textWrittenToPaper;
 	}
 
+	@Override
+	public int getDurability() {
+		return 0;
+	}
+
 }
