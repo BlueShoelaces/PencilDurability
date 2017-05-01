@@ -33,6 +33,19 @@ public class PencilTest extends TestHelper {
 		int actualDurability = pencil.getDurability();
 
 		assertEquals(expectedDurability, actualDurability);
+	}
+
+	@Test
+	public void testPencilPointDegradesWithUse() throws Exception {
+		int startingDurability = 1500;
+		Pencil pencil = new Pencil(startingDurability);
+		String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
+		pencil.writeOnPaper(new MockPaper(), lowercaseLetters);
+
+		int expectedDurabilityAfterWriting = startingDurability - 26;
+		int actualDurabilityAfterWriting = pencil.getDurability();
+
+		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 
 	}
 }

@@ -14,6 +14,7 @@ public class Pencil implements PencilInterface {
 
 	@Override
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
+		this.durability -= textToWrite.length();
 		paper.write(textToWrite);
 	}
 
