@@ -49,6 +49,20 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
+	public void testPencilPointDegradesWithUse_punctuationAndNumbersExpendOneGraphitePoint()
+			throws Exception {
+		int startingDurability = 1500;
+		Pencil pencil = new Pencil(startingDurability);
+		String punctuation = ".?!,;:-()[]{}'\"0123456789";
+		pencil.writeOnPaper(new MockPaper(), punctuation);
+
+		int expectedDurabilityAfterWriting = startingDurability - 25;
+		int actualDurabilityAfterWriting = pencil.getDurability();
+
+		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
+	}
+
+	@Test
 	public void testPencilPointDegradesWithUse_upperCaseExpendsTwoGraphitePoints()
 			throws Exception {
 		int startingDurability = 1500;
