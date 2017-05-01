@@ -18,9 +18,12 @@ public class Pencil implements PencilInterface {
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
 
 		for (int characterIndex = 0; characterIndex < textToWrite.length(); characterIndex++) {
-			if (Character.isLowerCase(textToWrite.charAt(characterIndex))) {
+
+			char characterToWrite = textToWrite.charAt(characterIndex);
+
+			if (Character.isLowerCase(characterToWrite)) {
 				this.durability -= LOWERCASE_DEGRADATION_VALUE;
-			} else {
+			} else if (Character.isUpperCase(characterToWrite)) {
 				this.durability -= UPPERCASE_DEGRADATION_VALUE;
 			}
 		}

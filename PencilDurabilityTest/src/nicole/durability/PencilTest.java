@@ -36,11 +36,11 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
-	public void testPencilPointDegradesWithUse_lowercase() throws Exception {
+	public void testPencilPointDegradesWithUse_lowerCaseExpendsOneGraphitePoint() throws Exception {
 		int startingDurability = 1500;
 		Pencil pencil = new Pencil(startingDurability);
-		String lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-		pencil.writeOnPaper(new MockPaper(), lowercaseLetters);
+		String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
+		pencil.writeOnPaper(new MockPaper(), lowerCaseLetters);
 
 		int expectedDurabilityAfterWriting = startingDurability - 26;
 		int actualDurabilityAfterWriting = pencil.getDurability();
@@ -49,15 +49,30 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
-	public void testPencilPointDegradesWithUse_uppercase() throws Exception {
+	public void testPencilPointDegradesWithUse_upperCaseExpendsTwoGraphitePoints()
+			throws Exception {
 		int startingDurability = 1500;
 		Pencil pencil = new Pencil(startingDurability);
-		String lowercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		pencil.writeOnPaper(new MockPaper(), lowercaseLetters);
+		String upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		pencil.writeOnPaper(new MockPaper(), upperCaseLetters);
 
 		int expectedDurabilityAfterWriting = startingDurability - (2 * 26);
 		int actualDurabilityAfterWriting = pencil.getDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 	}
+
+	@Test
+	public void testPencilPointDegradesWithUse_whitespaceExpendsNoGraphite() throws Exception {
+		int startingDurability = 1500;
+		Pencil pencil = new Pencil(startingDurability);
+		String whitespace = "\t   \n";
+		pencil.writeOnPaper(new MockPaper(), whitespace);
+
+		int expectedDurabilityAfterWriting = startingDurability;
+		int actualDurabilityAfterWriting = pencil.getDurability();
+
+		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
+	}
+
 }
