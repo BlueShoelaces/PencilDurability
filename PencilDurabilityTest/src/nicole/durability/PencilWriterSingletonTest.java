@@ -12,6 +12,7 @@ import nicole.test.*;
 
 public class PencilWriterSingletonTest extends TestHelper {
 
+	private static final int DURABILITY_500 = 500;
 	private String expectedTextToWrite = "Play it, Sam. Play 'As Time Goes By.'\n";
 	private PrintStream standardOut;
 	private ByteArrayOutputStream mockOutputStream;
@@ -37,10 +38,10 @@ public class PencilWriterSingletonTest extends TestHelper {
 	@Test
 	public void testAlwaysReturnsTheSameInstance() throws Exception {
 		PencilWriterSingletonInterface firstInstance = PencilWriterSingleton.instance();
-		assertIsOfType(PencilWriterSingleton.class, firstInstance);
+		assertIsOfTypeAndGet(PencilWriterSingleton.class, firstInstance);
 
 		PencilWriterSingletonInterface secondInstance = PencilWriterSingleton.instance();
-		assertIsOfType(PencilWriterSingleton.class, secondInstance);
+		assertIsOfTypeAndGet(PencilWriterSingleton.class, secondInstance);
 
 		assertSame(firstInstance, secondInstance);
 	}
@@ -62,7 +63,7 @@ public class PencilWriterSingletonTest extends TestHelper {
 	@Test
 	public void testRunShowsPaperAfterWritingToIt_functional() throws Exception {
 		Paper mockPaper = new Paper();
-		Pencil mockPencil = new Pencil();
+		Pencil mockPencil = new Pencil(DURABILITY_500);
 
 		PencilWriterSingleton.instance().run(mockPaper, mockPencil);
 

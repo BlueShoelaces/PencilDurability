@@ -9,16 +9,12 @@ public class Pencil implements PencilInterface {
 	private int currentDurability;
 	private int startingDurability;
 
-	public Pencil() {
-		initializeDurability(50);
+	public Pencil(int durability) {
+		initializeDurability(durability);
 	}
 
 	private void initializeDurability(int startingDurability) {
 		this.startingDurability = this.currentDurability = startingDurability;
-	}
-
-	public Pencil(int durability) {
-		initializeDurability(durability);
 	}
 
 	@Override

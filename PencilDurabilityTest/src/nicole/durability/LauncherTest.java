@@ -1,5 +1,6 @@
 package nicole.durability;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.*;
@@ -7,8 +8,9 @@ import java.lang.reflect.*;
 import org.junit.*;
 
 import nicole.durability.mocks.*;
+import nicole.test.*;
 
-public class LauncherTest {
+public class LauncherTest extends TestHelper {
 
 	private Field pencilWriterSingletonPrivateField;
 	private MockPencilWriterSingleton mockPencilWriter;
@@ -32,6 +34,14 @@ public class LauncherTest {
 	public void testMain() throws Exception {
 		Launcher.main(null);
 		assertTrue(this.mockPencilWriter.runWasCalled());
+
+		Pencil pencilPassedToRun = assertIsOfTypeAndGet(Pencil.class,
+				this.mockPencilWriter.getPencilPassedToRun());
+
+		int actualDurability = pencilPassedToRun.getDurability();
+		int expectedDurability = 500;
+		assertEquals(expectedDurability, actualDurability);
+
 	}
 
 }

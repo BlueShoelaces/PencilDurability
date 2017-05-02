@@ -13,9 +13,10 @@ public class TestHelper {
 		assertSame(expectedInterface, actualInterface);
 	}
 
-	protected <T> void assertIsOfType(Class<T> type, Object object) {
+	protected <T> T assertIsOfTypeAndGet(Class<T> type, Object object) {
 		assertNotNull("Expected " + type + " but was null", object);
 		assertTrue("Expected " + type + " but was " + object.getClass(),
 				type.isAssignableFrom(object.getClass()));
+		return type.cast(object);
 	}
 }

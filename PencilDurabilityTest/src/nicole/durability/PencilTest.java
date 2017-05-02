@@ -10,15 +10,13 @@ import nicole.test.*;
 
 public class PencilTest extends TestHelper {
 
-	private static final int DEFAULT_DURABILITY = 50;
-
 	@Test
 	public void testImplementsInterface() throws Exception {
 		assertImplementsInterface(Pencil.class, PencilInterface.class);
 	}
 
 	@Test
-	public void testPencilCanBeCreatedWithDurability() {
+	public void testPencilIsCreatedWithDurability() {
 		int expectedDurability = 1500;
 		PencilInterface pencil = new Pencil(expectedDurability);
 		int actualDurability = pencil.getDurability();
@@ -27,19 +25,12 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
-	public void testPencilGetsDefaultDurability() throws Exception {
-		Pencil pencil = new Pencil();
-		int actualDurability = pencil.getDurability();
-
-		assertEquals(DEFAULT_DURABILITY, actualDurability);
-
-	}
-
-	@Test
 	public void testWriteOnPaper() throws Exception {
-		PencilInterface pencil = new Pencil();
-		MockPaper mockPaper = new MockPaper();
 		String expectedTextWrittenToPaper = "What a long, strange trip it's been.";
+		int durability = expectedTextWrittenToPaper.length() * 2;
+
+		PencilInterface pencil = new Pencil(durability);
+		MockPaper mockPaper = new MockPaper();
 
 		pencil.writeOnPaper(mockPaper, expectedTextWrittenToPaper);
 
@@ -120,27 +111,27 @@ public class PencilTest extends TestHelper {
 	public void testSharpeningPencilRestoresOriginalDurability() throws Exception {
 
 		MockPaper mockPaper = new MockPaper();
-		int originalDurability = 500;
-		Pencil pencilWithDurabilitySpecified = new Pencil(originalDurability);
+		int originalDurability1 = 500;
+		Pencil pencil1 = new Pencil(originalDurability1);
 
 		String textToWrite = "BILL: Pai Mei taught you the Five Point Palm Exploding Heart Technique?\n";
-		pencilWithDurabilitySpecified.writeOnPaper(mockPaper, textToWrite);
+		pencil1.writeOnPaper(mockPaper, textToWrite);
 
-		assertTrue(pencilWithDurabilitySpecified.getDurability() < originalDurability);
+		assertTrue(pencil1.getDurability() < originalDurability1);
 
-		pencilWithDurabilitySpecified.sharpen();
+		pencil1.sharpen();
 
-		assertEquals(pencilWithDurabilitySpecified.getDurability(), originalDurability);
+		assertEquals(pencil1.getDurability(), originalDurability1);
 
-		Pencil pencilWithDefaultDurability = new Pencil();
-		int originalDefaultDurability = pencilWithDefaultDurability.getDurability();
-		pencilWithDefaultDurability.writeOnPaper(mockPaper, "BRIDE: Course he did.\n");
+		int originalDurability2 = 50;
+		Pencil pencil2 = new Pencil(originalDurability2);
+		pencil2.writeOnPaper(mockPaper, "BRIDE: Course he did.\n");
 
-		assertTrue(pencilWithDefaultDurability.getDurability() < originalDefaultDurability);
+		assertTrue(pencil2.getDurability() < originalDurability2);
 
-		pencilWithDefaultDurability.sharpen();
+		pencil2.sharpen();
 
-		assertEquals(pencilWithDefaultDurability.getDurability(), originalDefaultDurability);
+		assertEquals(pencil2.getDurability(), originalDurability2);
 	}
 
 }
