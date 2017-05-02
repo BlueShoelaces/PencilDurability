@@ -6,14 +6,19 @@ public class Pencil implements PencilInterface {
 	private static final int LOWERCASE_DEGRADATION_VALUE = 1;
 	private static final int PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE = 1;
 
-	private int durability;
+	private int currentDurability;
+	private int startingDurability;
 
 	public Pencil() {
-		this.durability = 50;
+		initializeDurability(50);
+	}
+
+	private void initializeDurability(int startingDurability) {
+		this.startingDurability = this.currentDurability = startingDurability;
 	}
 
 	public Pencil(int durability) {
-		this.durability = durability;
+		initializeDurability(durability);
 	}
 
 	@Override
@@ -25,7 +30,7 @@ public class Pencil implements PencilInterface {
 		for (int characterIndex = 0; characterIndex < numberOfCharactersInText; characterIndex++) {
 
 			char characterToWrite = textToWrite.charAt(characterIndex);
-			if (this.durability > 0) {
+			if (this.currentDurability > 0) {
 				charactersToWriteToPaper[characterIndex] = characterToWrite;
 				degradePencil(characterToWrite);
 			} else {
@@ -40,12 +45,12 @@ public class Pencil implements PencilInterface {
 
 	private void degradePencil(char characterToWrite) {
 		if (Character.isUpperCase(characterToWrite)) {
-			this.durability -= UPPERCASE_DEGRADATION_VALUE;
+			this.currentDurability -= UPPERCASE_DEGRADATION_VALUE;
 		} else if (Character.isLowerCase(characterToWrite)) {
-			this.durability -= LOWERCASE_DEGRADATION_VALUE;
+			this.currentDurability -= LOWERCASE_DEGRADATION_VALUE;
 		} else if (characterIsNumber(characterToWrite)
 				|| characterIsPunctuation(characterToWrite)) {
-			this.durability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
+			this.currentDurability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
 		}
 	}
 
@@ -64,7 +69,11 @@ public class Pencil implements PencilInterface {
 
 	@Override
 	public int getDurability() {
-		return this.durability;
+		return this.currentDurability;
+	}
+
+	public void sharpen() {
+		this.currentDurability = this.startingDurability;
 	}
 
 }

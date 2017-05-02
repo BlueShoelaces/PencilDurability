@@ -1,6 +1,7 @@
 package nicole.durability;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.*;
 
@@ -113,6 +114,33 @@ public class PencilTest extends TestHelper {
 		String actualTextWritten = mockPaper.getTextWrittenToPaper();
 
 		assertEquals(expectedTextWritten, actualTextWritten);
+	}
+
+	@Test
+	public void testSharpeningPencilRestoresOriginalDurability() throws Exception {
+
+		MockPaper mockPaper = new MockPaper();
+		int originalDurability = 500;
+		Pencil pencilWithDurabilitySpecified = new Pencil(originalDurability);
+
+		String textToWrite = "BILL: Pai Mei taught you the Five Point Palm Exploding Heart Technique?\n";
+		pencilWithDurabilitySpecified.writeOnPaper(mockPaper, textToWrite);
+
+		assertTrue(pencilWithDurabilitySpecified.getDurability() < originalDurability);
+
+		pencilWithDurabilitySpecified.sharpen();
+
+		assertEquals(pencilWithDurabilitySpecified.getDurability(), originalDurability);
+
+		Pencil pencilWithDefaultDurability = new Pencil();
+		int originalDefaultDurability = pencilWithDefaultDurability.getDurability();
+		pencilWithDefaultDurability.writeOnPaper(mockPaper, "BRIDE: Course he did.\n");
+
+		assertTrue(pencilWithDefaultDurability.getDurability() < originalDefaultDurability);
+
+		pencilWithDefaultDurability.sharpen();
+
+		assertEquals(pencilWithDefaultDurability.getDurability(), originalDefaultDurability);
 	}
 
 }
