@@ -10,6 +10,7 @@ import nicole.test.*;
 
 public class PencilTest extends TestHelper {
 
+	private static final int PENCIL_LENGTH_0 = 0;
 	private static final int PENCIL_LENGTH_5 = 5;
 	private static final int DURABILITY_500 = 500;
 
@@ -155,6 +156,21 @@ public class PencilTest extends TestHelper {
 		pencil.sharpen();
 
 		assertEquals(expectedPencilLengthAfterSharpening, pencil.getPencilLength());
+	}
+
+	@Test
+	public void testSharpeningPencilWithNoLengthDoesNotRestoreDurability() throws Exception {
+		int originalDurability = DURABILITY_500;
+		Pencil pencil = new Pencil(originalDurability, PENCIL_LENGTH_0);
+
+		pencil.writeOnPaper(new MockPaper(), "The turtle moves.");
+		int expectedFinalDurability = pencil.getCurrentDurability();
+		assertTrue(expectedFinalDurability < originalDurability);
+
+		pencil.sharpen();
+
+		int actualFinalDurability = pencil.getCurrentDurability();
+		assertEquals(expectedFinalDurability, actualFinalDurability);
 	}
 
 }

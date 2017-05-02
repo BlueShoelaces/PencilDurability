@@ -62,8 +62,10 @@ public class Pencil implements PencilInterface {
 	}
 
 	public void sharpen() {
-		this.currentDurability = this.startingDurability;
-		this.pencilLength--;
+		if (this.pencilLength > 0) {
+			this.currentDurability = this.startingDurability;
+			this.pencilLength--;
+		}
 	}
 
 	@Override
