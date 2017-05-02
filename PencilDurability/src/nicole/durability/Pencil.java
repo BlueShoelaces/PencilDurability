@@ -9,7 +9,7 @@ public class Pencil implements PencilInterface {
 	private int durability;
 
 	public Pencil() {
-
+		this.durability = 50;
 	}
 
 	public Pencil(int durability) {
@@ -19,21 +19,34 @@ public class Pencil implements PencilInterface {
 	@Override
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
 
-		for (int characterIndex = 0; characterIndex < textToWrite.length(); characterIndex++) {
+		int numberOfCharactersInText = textToWrite.length();
+		char[] charactersToWriteToPaper = new char[numberOfCharactersInText];
+
+		for (int characterIndex = 0; characterIndex < numberOfCharactersInText; characterIndex++) {
 
 			char characterToWrite = textToWrite.charAt(characterIndex);
-
-			if (Character.isUpperCase(characterToWrite)) {
-				this.durability -= UPPERCASE_DEGRADATION_VALUE;
-			} else if (Character.isLowerCase(characterToWrite)) {
-				this.durability -= LOWERCASE_DEGRADATION_VALUE;
-			} else if (characterIsNumber(characterToWrite)
-					|| characterIsPunctuation(characterToWrite)) {
-				this.durability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
+			if (this.durability > 0) {
+				charactersToWriteToPaper[characterIndex] = characterToWrite;
+				degradePencil(characterToWrite);
+			} else {
+				charactersToWriteToPaper[characterIndex] = ' ';
 			}
 		}
 
-		paper.write(textToWrite);
+		String textToWriteConsideringPencilSharpness = new String(charactersToWriteToPaper);
+
+		paper.write(textToWriteConsideringPencilSharpness);
+	}
+
+	private void degradePencil(char characterToWrite) {
+		if (Character.isUpperCase(characterToWrite)) {
+			this.durability -= UPPERCASE_DEGRADATION_VALUE;
+		} else if (Character.isLowerCase(characterToWrite)) {
+			this.durability -= LOWERCASE_DEGRADATION_VALUE;
+		} else if (characterIsNumber(characterToWrite)
+				|| characterIsPunctuation(characterToWrite)) {
+			this.durability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
+		}
 	}
 
 	private boolean characterIsNumber(char character) {

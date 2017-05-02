@@ -9,9 +9,29 @@ import nicole.test.*;
 
 public class PencilTest extends TestHelper {
 
+	private static final int DEFAULT_DURABILITY = 50;
+
 	@Test
 	public void testImplementsInterface() throws Exception {
 		assertImplementsInterface(Pencil.class, PencilInterface.class);
+	}
+
+	@Test
+	public void testPencilCanBeCreatedWithDurability() {
+		int expectedDurability = 1500;
+		PencilInterface pencil = new Pencil(expectedDurability);
+		int actualDurability = pencil.getDurability();
+
+		assertEquals(expectedDurability, actualDurability);
+	}
+
+	@Test
+	public void testPencilGetsDefaultDurability() throws Exception {
+		Pencil pencil = new Pencil();
+		int actualDurability = pencil.getDurability();
+
+		assertEquals(DEFAULT_DURABILITY, actualDurability);
+
 	}
 
 	@Test
@@ -24,15 +44,6 @@ public class PencilTest extends TestHelper {
 
 		String actualTextWrittenToPaper = mockPaper.getTextWrittenToPaper();
 		assertEquals(expectedTextWrittenToPaper, actualTextWrittenToPaper);
-	}
-
-	@Test
-	public void testPencilIsCreatedWithDurability() {
-		int expectedDurability = 1500;
-		PencilInterface pencil = new Pencil(expectedDurability);
-		int actualDurability = pencil.getDurability();
-
-		assertEquals(expectedDurability, actualDurability);
 	}
 
 	@Test
@@ -87,6 +98,21 @@ public class PencilTest extends TestHelper {
 		int actualDurabilityAfterWriting = pencil.getDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
+	}
+
+	@Test
+	public void testDullPencilWritesOnlyBlankSpaces() throws Exception {
+		int durability = 0;
+		Pencil pencil = new Pencil(durability);
+		MockPaper mockPaper = new MockPaper();
+
+		String textPencilIsDirectedToWrite = "I should sharpen my pencil...";
+		pencil.writeOnPaper(mockPaper, textPencilIsDirectedToWrite);
+
+		String expectedTextWritten = "                             ";
+		String actualTextWritten = mockPaper.getTextWrittenToPaper();
+
+		assertEquals(expectedTextWritten, actualTextWritten);
 	}
 
 }
