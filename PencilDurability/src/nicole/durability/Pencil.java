@@ -8,13 +8,11 @@ public class Pencil implements PencilInterface {
 
 	private int currentDurability;
 	private int startingDurability;
+	private int pencilLength;
 
-	public Pencil(int durability) {
-		initializeDurability(durability);
-	}
-
-	private void initializeDurability(int startingDurability) {
-		this.startingDurability = this.currentDurability = startingDurability;
+	public Pencil(int durability, int pencilLength) {
+		this.startingDurability = this.currentDurability = durability;
+		this.pencilLength = pencilLength;
 	}
 
 	@Override
@@ -63,13 +61,16 @@ public class Pencil implements PencilInterface {
 				|| character == '}' || character == '\'' || character == '"');
 	}
 
-	@Override
-	public int getDurability() {
-		return this.currentDurability;
-	}
-
 	public void sharpen() {
 		this.currentDurability = this.startingDurability;
 	}
 
+	@Override
+	public int getCurrentDurability() {
+		return this.currentDurability;
+	}
+
+	public int getPencilLength() {
+		return this.pencilLength;
+	}
 }

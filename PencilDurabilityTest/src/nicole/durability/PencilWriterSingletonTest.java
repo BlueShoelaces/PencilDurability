@@ -12,6 +12,7 @@ import nicole.test.*;
 
 public class PencilWriterSingletonTest extends TestHelper {
 
+	private static final int PENCIL_LENGTH_5 = 5;
 	private static final int DURABILITY_500 = 500;
 	private String expectedTextToWrite = "Play it, Sam. Play 'As Time Goes By.'\n";
 	private PrintStream standardOut;
@@ -63,7 +64,7 @@ public class PencilWriterSingletonTest extends TestHelper {
 	@Test
 	public void testRunShowsPaperAfterWritingToIt_functional() throws Exception {
 		Paper mockPaper = new Paper();
-		Pencil mockPencil = new Pencil(DURABILITY_500);
+		Pencil mockPencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
 
 		PencilWriterSingleton.instance().run(mockPaper, mockPencil);
 

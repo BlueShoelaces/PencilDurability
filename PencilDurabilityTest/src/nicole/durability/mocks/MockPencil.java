@@ -22,7 +22,7 @@ public class MockPencil implements PencilInterface {
 	}
 
 	@Override
-	public int getDurability() {
+	public int getCurrentDurability() {
 		return 0;
 	}
 

@@ -6,7 +6,7 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		PencilWriterSingletonInterface pencilWriter = PencilWriterSingleton.instance();
-		pencilWriter.run(new Paper(), new Pencil(DURABILITY_500));
+		pencilWriter.run(new Paper(), new Pencil(DURABILITY_500, 0)); //TODO: Create Pencil with a length
 	}
 
 }

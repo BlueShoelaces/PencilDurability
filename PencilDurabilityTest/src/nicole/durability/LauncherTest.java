@@ -38,7 +38,7 @@ public class LauncherTest extends TestHelper {
 		Pencil pencilPassedToRun = assertIsOfTypeAndGet(Pencil.class,
 				this.mockPencilWriter.getPencilPassedToRun());
 
-		int actualDurability = pencilPassedToRun.getDurability();
+		int actualDurability = pencilPassedToRun.getCurrentDurability();
 		int expectedDurability = 500;
 		assertEquals(expectedDurability, actualDurability);
 

@@ -4,6 +4,6 @@ public interface PencilInterface {
 
 	void writeOnPaper(PaperInterface paper, String textToWrite);
 
-	int getDurability();
+	int getCurrentDurability();
 
 }
