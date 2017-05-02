@@ -11,6 +11,7 @@ import nicole.test.*;
 public class PencilTest extends TestHelper {
 
 	private static final int PENCIL_LENGTH_5 = 5;
+	private static final int DURABILITY_500 = 500;
 
 	@Test
 	public void testImplementsInterface() throws Exception {
@@ -138,6 +139,22 @@ public class PencilTest extends TestHelper {
 		pencil2.sharpen();
 
 		assertEquals(pencil2.getCurrentDurability(), originalDurability2);
+	}
+
+	@Test
+	public void testSharpeningPencilMakesItShorter() throws Exception {
+		int originalPencilLength = PENCIL_LENGTH_5;
+		Pencil pencil = new Pencil(DURABILITY_500, originalPencilLength);
+
+		int expectedPencilLengthAfterSharpening = originalPencilLength - 1;
+		pencil.sharpen();
+
+		assertEquals(expectedPencilLengthAfterSharpening, pencil.getPencilLength());
+
+		expectedPencilLengthAfterSharpening = expectedPencilLengthAfterSharpening - 1;
+		pencil.sharpen();
+
+		assertEquals(expectedPencilLengthAfterSharpening, pencil.getPencilLength());
 	}
 
 }
