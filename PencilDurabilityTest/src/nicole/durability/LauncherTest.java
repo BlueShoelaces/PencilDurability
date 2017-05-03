@@ -42,6 +42,10 @@ public class LauncherTest extends TestHelper {
 		int expectedDurability = 500;
 		assertEquals(expectedDurability, actualDurability);
 
+		int actualPencilLength = pencilPassedToRun.getPencilLength();
+		int expectedPencilLength = 4;
+		assertEquals(expectedPencilLength, actualPencilLength);
+
 	}
 
 }
