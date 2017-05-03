@@ -1,6 +1,7 @@
 package nicole.durability.io;
 
 import java.io.*;
+import java.util.*;
 
 public class InputScannerWrapperSingleton {
 
@@ -20,6 +21,13 @@ public class InputScannerWrapperSingleton {
 
 	public InputStream getInputStream() {
 		return inputStream;
+	}
+
+	public String nextLine() {
+		Scanner scanner = new Scanner(System.in);
+		String nextLineFromScanner = scanner.nextLine();
+		scanner.close();
+		return nextLineFromScanner;
 	}
 
 }
