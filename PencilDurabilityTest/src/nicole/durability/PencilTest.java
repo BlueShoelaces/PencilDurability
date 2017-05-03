@@ -118,7 +118,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testSharpeningPencilRestoresOriginalDurability() throws Exception {
 
-		MockPaper mockPaper = new MockPaper();
+		PaperInterface mockPaper = new MockPaper();
 		int originalDurability1 = 500;
 		Pencil pencil1 = new Pencil(originalDurability1, PENCIL_LENGTH_5);
 
@@ -171,6 +171,18 @@ public class PencilTest extends TestHelper {
 
 		int actualFinalDurability = pencil.getCurrentDurability();
 		assertEquals(expectedFinalDurability, actualFinalDurability);
+	}
+
+	@Test
+	public void testErase() throws Exception {
+		Pencil pencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
+		MockPaper mockPaper = new MockPaper();
+
+		String expectedTextErased = "Erase me!";
+		pencil.erase(mockPaper, expectedTextErased);
+
+		assertTrue(mockPaper.replaceWithWhitespaceWasCalled());
+		assertEquals(expectedTextErased, mockPaper.getTextPassedToReplaceWithWhitespace());
 	}
 
 }

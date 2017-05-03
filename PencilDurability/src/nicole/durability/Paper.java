@@ -14,4 +14,9 @@ public class Paper implements PaperInterface {
 		System.out.print(this.textOnPaper);
 	}
 
+	@Override
+	public void replaceWithWhitespace(String textToErase) {
+
+	}
+
 }

@@ -49,7 +49,7 @@ public class PencilWriterSingletonTest extends TestHelper {
 
 	@Test
 	public void testRunWritesSomethingToPaper() throws Exception {
-		MockPaper expectedPaper = new MockPaper();
+		PaperInterface expectedPaper = new MockPaper();
 		MockPencil mockPencil = new MockPencil();
 
 		PencilWriterSingleton.instance().run(expectedPaper, mockPencil);

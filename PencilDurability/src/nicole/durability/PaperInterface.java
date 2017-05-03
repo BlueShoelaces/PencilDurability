@@ -6,4 +6,6 @@ public interface PaperInterface {
 
 	void write(String stringToWriteToPaper);
 
+	void replaceWithWhitespace(String textToErase);
+
 }
