@@ -1,8 +1,11 @@
 package nicole.durability.io;
 
+import java.io.*;
+
 public class InputScannerWrapperSingleton {
 
 	private static InputScannerWrapperSingleton instance;
+	private static InputStream inputStream = System.in;
 
 	private InputScannerWrapperSingleton() {
 
@@ -13,6 +16,10 @@ public class InputScannerWrapperSingleton {
 			instance = new InputScannerWrapperSingleton();
 		}
 		return instance;
+	}
+
+	public InputStream getInputStream() {
+		return inputStream;
 	}
 
 }
