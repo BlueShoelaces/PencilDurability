@@ -56,12 +56,4 @@ public class InputScannerWrapperSingletonTest extends TestHelper {
 		actualNextLine = inputScannerWrapper.nextLine();
 		assertEquals(expectedNextLine, actualNextLine);
 	}
-
-//	@Test
-//	public void testHasScanner() throws Exception {
-//		InputScannerWrapperSingleton inputScannerWrapper = InputScannerWrapperSingleton.instance();
-//		Scanner scanner = assertIsOfTypeAndGet(Scanner.class, inputScannerWrapper.getScanner());
-//
-//		scanner.
-//	}
 }
