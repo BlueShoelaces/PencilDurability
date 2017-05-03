@@ -16,6 +16,7 @@ public class WritePencilAction {
 	public void perform() {
 		InputScannerWrapperSingletonInterface scannerWrapper = InputScannerWrapperSingleton
 				.instance();
+		System.out.print("Enter some text to write: ");
 		String textToWrite = scannerWrapper.nextLine();
 		this.pencil.writeOnPaper(this.paper, textToWrite);
 	}
