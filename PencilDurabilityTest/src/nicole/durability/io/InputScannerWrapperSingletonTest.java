@@ -26,16 +26,25 @@ public class InputScannerWrapperSingletonTest extends TestHelper {
 
 	@Test
 	public void testAlwaysReturnsSameInstance() throws Exception {
-		InputScannerWrapperSingleton firstInstance = InputScannerWrapperSingleton.instance();
+		InputScannerWrapperSingletonInterface firstInstance = InputScannerWrapperSingleton
+				.instance();
 		assertNotNull(firstInstance);
 
-		InputScannerWrapperSingleton secondInstance = InputScannerWrapperSingleton.instance();
+		InputScannerWrapperSingletonInterface secondInstance = InputScannerWrapperSingleton
+				.instance();
 		assertSame(firstInstance, secondInstance);
 	}
 
 	@Test
+	public void testImplementsInterface() throws Exception {
+		assertImplementsInterface(InputScannerWrapperSingleton.class,
+				InputScannerWrapperSingletonInterface.class);
+	}
+
+	@Test
 	public void testHasSystemIn() throws Exception {
-		InputScannerWrapperSingleton inputScannerWrapper = InputScannerWrapperSingleton.instance();
+		InputScannerWrapperSingletonInterface inputScannerWrapper = InputScannerWrapperSingleton
+				.instance();
 		InputStream expectedInputStream = System.in;
 		InputStream actualInputStream = inputScannerWrapper.getInputStream();
 		assertSame(expectedInputStream, actualInputStream);
@@ -43,7 +52,8 @@ public class InputScannerWrapperSingletonTest extends TestHelper {
 
 	@Test
 	public void testNextLine() throws Exception {
-		InputScannerWrapperSingleton inputScannerWrapper = InputScannerWrapperSingleton.instance();
+		InputScannerWrapperSingletonInterface inputScannerWrapper = InputScannerWrapperSingleton
+				.instance();
 		String expectedNextLine = "It doesn't have to rhyme";
 		System.setIn(new ByteArrayInputStream(expectedNextLine.getBytes()));
 
