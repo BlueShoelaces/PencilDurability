@@ -68,4 +68,17 @@ public class PaperTest extends TestHelper {
 		assertEquals(firstTextWritten + secondTextWritten + thirdTextWritten,
 				this.mockOutputStream.toString());
 	}
+
+	@Test
+	public void testReplaceWithWhitespace() throws Exception {
+		Paper paper = new Paper();
+		String textAlreadyOnPaper = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis, je fume.";
+		paper.write(textAlreadyOnPaper);
+		assertEquals(textAlreadyOnPaper, paper.getTextOnPaper());
+
+		paper.replaceWithWhitespace("je");
+		String expectedTextAfterErasing = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis,    fume.";
+
+		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+	}
 }

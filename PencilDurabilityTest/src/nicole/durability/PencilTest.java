@@ -42,7 +42,7 @@ public class PencilTest extends TestHelper {
 
 		pencil.writeOnPaper(mockPaper, expectedTextWrittenToPaper);
 
-		String actualTextWrittenToPaper = mockPaper.getTextWrittenToPaper();
+		String actualTextWrittenToPaper = mockPaper.getTextPassedToWrite();
 		assertEquals(expectedTextWrittenToPaper, actualTextWrittenToPaper);
 	}
 
@@ -110,7 +110,7 @@ public class PencilTest extends TestHelper {
 		pencil.writeOnPaper(mockPaper, textPencilIsDirectedToWrite);
 
 		String expectedTextWritten = "                             ";
-		String actualTextWritten = mockPaper.getTextWrittenToPaper();
+		String actualTextWritten = mockPaper.getTextPassedToWrite();
 
 		assertEquals(expectedTextWritten, actualTextWritten);
 	}

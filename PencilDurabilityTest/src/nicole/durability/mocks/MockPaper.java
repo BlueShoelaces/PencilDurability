@@ -6,7 +6,7 @@ public class MockPaper implements PaperInterface {
 
 	private boolean showPaperWasCalled = false;
 	private boolean replaceWithWhitespaceWasCalled = false;
-	private String textWrittenToPaper;
+	private String textPassedToWrite;
 	private String textPassedToReplaceWithWhitespace;
 
 	@Override
@@ -16,7 +16,7 @@ public class MockPaper implements PaperInterface {
 
 	@Override
 	public void write(String textToWriteToPaper) {
-		this.textWrittenToPaper = textToWriteToPaper;
+		this.textPassedToWrite = textToWriteToPaper;
 	}
 
 	@Override
@@ -25,20 +25,16 @@ public class MockPaper implements PaperInterface {
 		this.replaceWithWhitespaceWasCalled = true;
 	}
 
-	public String getTextWrittenToPaper() {
-		return this.textWrittenToPaper;
-	}
-
-	public void setTextWrittenToPaper(String textWrittenToPaper) {
-		this.textWrittenToPaper = textWrittenToPaper;
-	}
-
-	public boolean showPaperWasCalled() {
-		return this.showPaperWasCalled;
+	public String getTextPassedToWrite() {
+		return this.textPassedToWrite;
 	}
 
 	public boolean replaceWithWhitespaceWasCalled() {
 		return this.replaceWithWhitespaceWasCalled;
+	}
+
+	public boolean showPaperWasCalled() {
+		return this.showPaperWasCalled;
 	}
 
 	public String getTextPassedToReplaceWithWhitespace() {
