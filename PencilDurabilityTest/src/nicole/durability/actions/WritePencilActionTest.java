@@ -44,6 +44,16 @@ public class WritePencilActionTest {
 	}
 
 	@Test
+	public void testGetters() throws Exception {
+		MockPencil mockPencil = new MockPencil();
+		MockPaper mockPaper = new MockPaper();
+		WritePencilAction writePencilAction = new WritePencilAction(mockPencil, mockPaper);
+
+		assertSame(mockPencil, writePencilAction.getPencil());
+		assertSame(mockPaper, writePencilAction.getPaper());
+	}
+
+	@Test
 	public void testPerform_PromptsUserForTextToWrite() throws Exception {
 		WritePencilAction writePencilAction = new WritePencilAction(new MockPencil(),
 				new MockPaper());

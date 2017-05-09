@@ -30,7 +30,8 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		List<WritePencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
-		assertIsOfTypeAndGet(WritePencilAction.class, actualMenuActions.get(0));
+		WritePencilAction firstMenuAction = actualMenuActions.get(0);
+		assertIsOfTypeAndGet(WritePencilAction.class, firstMenuAction);
 	}
 
 }

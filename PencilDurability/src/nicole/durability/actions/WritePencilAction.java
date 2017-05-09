@@ -21,4 +21,12 @@ public class WritePencilAction {
 		this.pencil.writeOnPaper(this.paper, textToWrite);
 	}
 
+	public PencilInterface getPencil() {
+		return this.pencil;
+	}
+
+	public PaperInterface getPaper() {
+		return this.paper;
+	}
+
 }
