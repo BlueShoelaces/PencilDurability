@@ -12,8 +12,9 @@ import org.junit.*;
 import nicole.durability.*;
 import nicole.durability.io.*;
 import nicole.durability.mocks.*;
+import nicole.test.*;
 
-public class WritePencilActionTest {
+public class WritePencilActionTest extends TestHelper {
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockScannerWrapper;
@@ -51,6 +52,11 @@ public class WritePencilActionTest {
 
 		assertSame(mockPencil, writePencilAction.getPencil());
 		assertSame(mockPaper, writePencilAction.getPaper());
+	}
+
+	@Test
+	public void testImplementsInterface() throws Exception {
+		assertImplementsInterface(WritePencilAction.class, PencilAction.class);
 	}
 
 	@Test

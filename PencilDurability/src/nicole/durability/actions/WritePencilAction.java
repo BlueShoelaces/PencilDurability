@@ -3,7 +3,7 @@ package nicole.durability.actions;
 import nicole.durability.*;
 import nicole.durability.io.*;
 
-public class WritePencilAction {
+public class WritePencilAction implements PencilAction {
 
 	private PencilInterface pencil;
 	private PaperInterface paper;
@@ -27,6 +27,11 @@ public class WritePencilAction {
 
 	public PaperInterface getPaper() {
 		return this.paper;
+	}
+
+	@Override
+	public String getTextToDisplay() {
+		return null;
 	}
 
 }

@@ -10,8 +10,8 @@ import nicole.durability.io.*;
 
 @RunWith(Suite.class)
 @SuiteClasses({ InputScannerWrapperSingletonTest.class, LauncherTest.class, PaperTest.class,
-		PencilWriterActionMenuTest.class, PencilWriterSingletonTest.class, PencilTest.class,
-		WritePencilActionTest.class })
+		PencilWriterActionMenuDisplayHelperTest.class, PencilWriterActionMenuTest.class,
+		PencilWriterSingletonTest.class, PencilTest.class, WritePencilActionTest.class })
 public class AllTests {
 
 }

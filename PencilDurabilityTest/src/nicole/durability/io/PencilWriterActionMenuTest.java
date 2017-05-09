@@ -47,5 +47,4 @@ public class PencilWriterActionMenuTest extends TestHelper {
 
 		assertIsOfTypeAndGet(Paper.class, writePencilAction.getPaper());
 	}
-
 }
