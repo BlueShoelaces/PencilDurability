@@ -7,11 +7,11 @@ import nicole.durability.actions.*;
 
 public class PencilWriterActionMenu {
 
-	private List<WritePencilAction> menuActions;
+	private List<PencilAction> menuActions;
 	private DisplayHelperInterface displayHelper;
 
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
-		this.menuActions = new ArrayList<WritePencilAction>();
+		this.menuActions = new ArrayList<PencilAction>();
 		this.displayHelper = displayHelper;
 	}
 
@@ -20,9 +20,10 @@ public class PencilWriterActionMenu {
 		int pencilLength = 4;
 		this.menuActions.add(
 				new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
+		this.displayHelper.display(this.menuActions);
 	}
 
-	public List<WritePencilAction> getMenuActions() {
+	public List<PencilAction> getMenuActions() {
 		return this.menuActions;
 	}
 

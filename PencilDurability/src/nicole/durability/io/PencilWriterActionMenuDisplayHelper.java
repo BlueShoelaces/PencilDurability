@@ -4,8 +4,9 @@ import java.util.*;
 
 import nicole.durability.actions.*;
 
-public class PencilWriterActionMenuDisplayHelper {
+public class PencilWriterActionMenuDisplayHelper implements DisplayHelperInterface {
 
+	@Override
 	public void display(List<PencilAction> pencilActionsToDisplay) {
 		String textToDisplay = "";
 		for (PencilAction pencilAction : pencilActionsToDisplay) {

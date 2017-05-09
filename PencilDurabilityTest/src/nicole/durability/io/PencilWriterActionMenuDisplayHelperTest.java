@@ -9,8 +9,9 @@ import org.junit.*;
 
 import nicole.durability.actions.*;
 import nicole.durability.mocks.*;
+import nicole.test.*;
 
-public class PencilWriterActionMenuDisplayHelperTest {
+public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 
 	private PrintStream standardOut;
 	private ByteArrayOutputStream mockOutputStream;
@@ -25,6 +26,12 @@ public class PencilWriterActionMenuDisplayHelperTest {
 	@After
 	public void tearDown() throws Exception {
 		System.setOut(this.standardOut);
+	}
+
+	@Test
+	public void testImplementsInterface() throws Exception {
+		assertImplementsInterface(PencilWriterActionMenuDisplayHelper.class,
+				DisplayHelperInterface.class);
 	}
 
 	@Test
@@ -43,7 +50,7 @@ public class PencilWriterActionMenuDisplayHelperTest {
 		List<PencilAction> pencilActionsToDisplay = Arrays.asList(firstMockPencilAction,
 				secondMockPencilAction, thirdMockPencilAction);
 
-		PencilWriterActionMenuDisplayHelper displayHelper = new PencilWriterActionMenuDisplayHelper();
+		DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();
 		displayHelper.display(pencilActionsToDisplay);
 
 		String expectedTextToDisplay = expectedFirstActionText + "\n" + expectedSecondActionText

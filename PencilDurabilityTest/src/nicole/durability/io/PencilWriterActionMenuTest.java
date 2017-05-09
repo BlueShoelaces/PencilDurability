@@ -22,7 +22,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockPencilWriterActionMenuDisplayHelper expectedDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				expectedDisplayHelper);
-		List<WritePencilAction> emptyPencilActionList = pencilWriterActionMenu.getMenuActions();
+		List<PencilAction> emptyPencilActionList = pencilWriterActionMenu.getMenuActions();
 		assertNotNull(emptyPencilActionList);
 		assertEquals(0, emptyPencilActionList.size());
 
@@ -31,13 +31,14 @@ public class PencilWriterActionMenuTest extends TestHelper {
 
 	@Test
 	public void testOpenMainMenu_createsWritePencilAction() throws Exception {
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(null);
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
 		pencilWriterActionMenu.openMainMenu();
 
-		List<WritePencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
+		List<PencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
-		WritePencilAction firstMenuAction = actualMenuActions.get(0);
+		PencilAction firstMenuAction = actualMenuActions.get(0);
 		WritePencilAction writePencilAction = assertIsOfTypeAndGet(WritePencilAction.class,
 				firstMenuAction);
 
@@ -52,5 +53,19 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertEquals(expectedPencilLength, actualPencilLength);
 
 		assertIsOfTypeAndGet(Paper.class, writePencilAction.getPaper());
+	}
+
+	@Test
+	public void testOpenMainMenu_passesPencilActionsToDisplayHelper() throws Exception {
+		MockPencilWriterActionMenuDisplayHelper mockDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				mockDisplayHelper);
+
+		pencilWriterActionMenu.openMainMenu();
+
+		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		List<PencilAction> actualPencilActions = mockDisplayHelper.getActionListPassedToDisplay();
+
+		assertSame(expectedPencilActions, actualPencilActions);
 	}
 }
