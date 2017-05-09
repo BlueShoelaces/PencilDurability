@@ -2,6 +2,8 @@ package nicole.durability.actions;
 
 public interface PencilAction {
 
-	String getTextToDisplay();
+	public String getTextToDisplay();
+
+	public void perform();
 
 }

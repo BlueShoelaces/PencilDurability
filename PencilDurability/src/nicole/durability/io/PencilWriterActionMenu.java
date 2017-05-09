@@ -11,16 +11,13 @@ public class PencilWriterActionMenu {
 	private DisplayHelperInterface displayHelper;
 
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
-		this.menuActions = new ArrayList<PencilAction>();
+		createActionsForMainMenu();
 		this.displayHelper = displayHelper;
 	}
 
 	public void openMainMenu() {
-		int pencilDurability = 500;
-		int pencilLength = 4;
-		this.menuActions.add(
-				new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
 		this.displayHelper.display(this.menuActions);
+		this.menuActions.get(0).perform();
 	}
 
 	public List<PencilAction> getMenuActions() {
@@ -31,4 +28,11 @@ public class PencilWriterActionMenu {
 		return this.displayHelper;
 	}
 
+	private void createActionsForMainMenu() {
+		this.menuActions = new ArrayList<PencilAction>();
+		int pencilDurability = 500;
+		int pencilLength = 4;
+		this.menuActions.add(
+				new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
+	}
 }

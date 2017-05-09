@@ -1,8 +1,8 @@
 package nicole.durability.io;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.*;
 
@@ -22,18 +22,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockPencilWriterActionMenuDisplayHelper expectedDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				expectedDisplayHelper);
-		List<PencilAction> emptyPencilActionList = pencilWriterActionMenu.getMenuActions();
-		assertNotNull(emptyPencilActionList);
-		assertEquals(0, emptyPencilActionList.size());
-
 		assertSame(expectedDisplayHelper, pencilWriterActionMenu.getDisplayHelper());
-	}
-
-	@Test
-	public void testOpenMainMenu_createsWritePencilAction() throws Exception {
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
-				new MockPencilWriterActionMenuDisplayHelper());
-		pencilWriterActionMenu.openMainMenu();
 
 		List<PencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
@@ -61,11 +50,35 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				mockDisplayHelper);
 
+		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		expectedPencilActions.clear();
+		expectedPencilActions.add(new MockPencilAction());
+		expectedPencilActions.add(new MockPencilAction());
+		expectedPencilActions.add(new MockPencilAction());
+
 		pencilWriterActionMenu.openMainMenu();
 
-		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
 		List<PencilAction> actualPencilActions = mockDisplayHelper.getActionListPassedToDisplay();
 
 		assertSame(expectedPencilActions, actualPencilActions);
+		for (PencilAction pencilAction : expectedPencilActions) {
+			assertTrue(actualPencilActions.contains(pencilAction));
+		}
+	}
+
+	@Test
+	public void testOpenMainMenu_performsFirstPencilAction() throws Exception {
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
+
+		List<PencilAction> menuActions = pencilWriterActionMenu.getMenuActions();
+		menuActions.clear();
+		MockPencilAction mockPencilAction = new MockPencilAction();
+		menuActions.add(mockPencilAction);
+
+		pencilWriterActionMenu.openMainMenu();
+
+		boolean performWasCalled = mockPencilAction.performWasCalled();
+		assertTrue(performWasCalled);
 	}
 }
