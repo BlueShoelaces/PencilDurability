@@ -4,7 +4,7 @@ import java.util.*;
 
 import nicole.durability.actions.*;
 
-public class PencilWriterActionMenuDisplayHelper extends PencilWriterActionMenu {
+public class PencilWriterActionMenuDisplayHelper {
 
 	public void display(List<PencilAction> pencilActionsToDisplay) {
 		String textToDisplay = "";

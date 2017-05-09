@@ -2,6 +2,7 @@ package nicole.durability.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 import java.util.*;
 
@@ -9,6 +10,7 @@ import org.junit.*;
 
 import nicole.durability.*;
 import nicole.durability.actions.*;
+import nicole.durability.mocks.*;
 import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
@@ -16,16 +18,20 @@ public class PencilWriterActionMenuTest extends TestHelper {
 	private static final int NUMBER_OF_MENU_ITEMS = 1;
 
 	@Test
-	public void testConstructorCreatesEmptyActionList() throws Exception {
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu();
-		List<WritePencilAction> menuActions = pencilWriterActionMenu.getMenuActions();
-		assertNotNull(menuActions);
-		assertEquals(0, menuActions.size());
+	public void testConstructor() throws Exception {
+		MockPencilWriterActionMenuDisplayHelper expectedDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				expectedDisplayHelper);
+		List<WritePencilAction> emptyPencilActionList = pencilWriterActionMenu.getMenuActions();
+		assertNotNull(emptyPencilActionList);
+		assertEquals(0, emptyPencilActionList.size());
+
+		assertSame(expectedDisplayHelper, pencilWriterActionMenu.getDisplayHelper());
 	}
 
 	@Test
 	public void testOpenMainMenu_createsWritePencilAction() throws Exception {
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu();
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(null);
 		pencilWriterActionMenu.openMainMenu();
 
 		List<WritePencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
