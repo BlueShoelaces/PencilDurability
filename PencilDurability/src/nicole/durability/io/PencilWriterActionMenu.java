@@ -2,6 +2,7 @@ package nicole.durability.io;
 
 import java.util.*;
 
+import nicole.durability.*;
 import nicole.durability.actions.*;
 
 public class PencilWriterActionMenu {
@@ -13,7 +14,9 @@ public class PencilWriterActionMenu {
 	}
 
 	public void openMainMenu() {
-		this.menuActions.add(new WritePencilAction(null, null));
+		int pencilDurability = 500;
+		int pencilLength = 4;
+		this.menuActions.add(new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
 	}
 
 	public List<WritePencilAction> getMenuActions() {

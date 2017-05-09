@@ -7,6 +7,7 @@ import java.util.*;
 
 import org.junit.*;
 
+import nicole.durability.*;
 import nicole.durability.actions.*;
 import nicole.test.*;
 
@@ -31,7 +32,20 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertEquals(NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
 		WritePencilAction firstMenuAction = actualMenuActions.get(0);
-		assertIsOfTypeAndGet(WritePencilAction.class, firstMenuAction);
+		WritePencilAction writePencilAction = assertIsOfTypeAndGet(WritePencilAction.class,
+				firstMenuAction);
+
+		Pencil pencil = assertIsOfTypeAndGet(Pencil.class, writePencilAction.getPencil());
+
+		int actualDurability = pencil.getCurrentDurability();
+		int expectedDurability = 500;
+		assertEquals(expectedDurability, actualDurability);
+
+		int actualPencilLength = pencil.getPencilLength();
+		int expectedPencilLength = 4;
+		assertEquals(expectedPencilLength, actualPencilLength);
+
+		assertIsOfTypeAndGet(Paper.class, writePencilAction.getPaper());
 	}
 
 }
