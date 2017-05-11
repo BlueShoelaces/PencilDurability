@@ -15,7 +15,13 @@ import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
 
-	private static final int NUMBER_OF_MENU_ITEMS = 1;
+	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 1;
+
+	@Test
+	public void testImplementsInterface() throws Exception {
+		assertImplementsInterface(PencilWriterActionMenu.class,
+				PencilWriterActionMenuInterface.class);
+	}
 
 	@Test
 	public void testConstructor() throws Exception {
@@ -25,7 +31,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertSame(expectedDisplayHelper, pencilWriterActionMenu.getDisplayHelper());
 
 		List<PencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
-		assertEquals(NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
+		assertEquals(EXPECTED_NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
 		PencilAction firstMenuAction = actualMenuActions.get(0);
 		WritePencilAction writePencilAction = assertIsOfTypeAndGet(WritePencilAction.class,
@@ -47,7 +53,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 	@Test
 	public void testOpenMainMenu_passesPencilActionsToDisplayHelper() throws Exception {
 		MockPencilWriterActionMenuDisplayHelper mockDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+		PencilWriterActionMenuInterface pencilWriterActionMenu = new PencilWriterActionMenu(
 				mockDisplayHelper);
 
 		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
@@ -68,7 +74,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 
 	@Test
 	public void testOpenMainMenu_performsFirstPencilAction() throws Exception {
-		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+		PencilWriterActionMenuInterface pencilWriterActionMenu = new PencilWriterActionMenu(
 				new MockPencilWriterActionMenuDisplayHelper());
 
 		List<PencilAction> menuActions = pencilWriterActionMenu.getMenuActions();

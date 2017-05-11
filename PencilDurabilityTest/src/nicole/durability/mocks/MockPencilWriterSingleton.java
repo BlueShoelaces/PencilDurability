@@ -1,6 +1,7 @@
 package nicole.durability.mocks;
 
 import nicole.durability.*;
+import nicole.durability.io.*;
 
 public class MockPencilWriterSingleton implements PencilWriterSingletonInterface {
 
@@ -19,6 +20,11 @@ public class MockPencilWriterSingleton implements PencilWriterSingletonInterface
 
 	public PencilInterface getPencilPassedToRun() {
 		return this.pencilPassedToRun;
+	}
+
+	@Override
+	public void run(PencilWriterActionMenuInterface pencilWriterActionMenu) {
+
 	}
 
 }

@@ -2,6 +2,7 @@ package nicole.durability;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.io.*;
 
@@ -71,5 +72,14 @@ public class PencilWriterSingletonTest extends TestHelper {
 		String actualTextToShow = this.mockOutputStream.toString();
 
 		assertEquals(this.expectedTextToWrite, actualTextToShow);
+	}
+
+	@Test
+	public void testRunLaunchesMainMenu() throws Exception {
+		MockPencilWriterActionMenu mockMenu = new MockPencilWriterActionMenu();
+		PencilWriterSingleton.instance().run(mockMenu);
+
+		boolean mainMenuWasCalled = mockMenu.openMainMenuWasCalled();
+		assertTrue(mainMenuWasCalled);
 	}
 }

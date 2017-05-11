@@ -1,5 +1,7 @@
 package nicole.durability;
 
+import nicole.durability.io.*;
+
 public class PencilWriterSingleton implements PencilWriterSingletonInterface {
 
 	private static final String DEFAULT_TEXT = "Play it, Sam. Play 'As Time Goes By.'\n";
@@ -20,6 +22,11 @@ public class PencilWriterSingleton implements PencilWriterSingletonInterface {
 	public void run(PaperInterface paper, PencilInterface pencil) {
 		pencil.writeOnPaper(paper, DEFAULT_TEXT);
 		paper.showPaper();
+	}
+
+	@Override
+	public void run(PencilWriterActionMenuInterface pencilWriterActionMenu) {
+		pencilWriterActionMenu.openMainMenu();
 	}
 
 }
