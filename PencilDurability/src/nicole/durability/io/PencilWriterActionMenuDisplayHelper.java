@@ -8,9 +8,11 @@ public class PencilWriterActionMenuDisplayHelper implements DisplayHelperInterfa
 
 	@Override
 	public void display(List<PencilAction> pencilActionsToDisplay) {
-		String textToDisplay = "";
+		String textToDisplay = "MAIN MENU:\n";
+		int menuNumber = 1;
 		for (PencilAction pencilAction : pencilActionsToDisplay) {
-			textToDisplay += pencilAction.getTextToDisplay() + "\n";
+			textToDisplay += " " + menuNumber + "  " + pencilAction.getTextToDisplay() + "\n";
+			menuNumber++;
 		}
 		System.out.print(textToDisplay);
 	}

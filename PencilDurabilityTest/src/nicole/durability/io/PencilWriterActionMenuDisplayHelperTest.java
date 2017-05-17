@@ -53,8 +53,12 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 		DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();
 		displayHelper.display(pencilActionsToDisplay);
 
-		String expectedTextToDisplay = expectedFirstActionText + "\n" + expectedSecondActionText
-				+ "\n" + expectedThirdActionText + "\n";
+		String mainMenuTitle = "MAIN MENU:\n";
+		String expectedFirstMenuItemText = " 1  " + expectedFirstActionText + "\n";
+		String expectedSecondMenuItemText = " 2  " + expectedSecondActionText + "\n";
+		String expectedThirdMenuItemText = " 3  " + expectedThirdActionText + "\n";
+		String expectedTextToDisplay = mainMenuTitle + expectedFirstMenuItemText
+				+ expectedSecondMenuItemText + expectedThirdMenuItemText;
 
 		String actualTextToDisplay = this.mockOutputStream.toString();
 
