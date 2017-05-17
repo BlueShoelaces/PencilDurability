@@ -88,4 +88,11 @@ public class WritePencilActionTest extends TestHelper {
 		String actualTextWrittenToPaper = mockPencil.getTextWrittenToPaper();
 		assertEquals(expectedTextWrittenToPaper, actualTextWrittenToPaper);
 	}
+
+	@Test
+	public void testGetTextToDisplay() throws Exception {
+		WritePencilAction writePencilAction = new WritePencilAction(new MockPencil(),
+				new MockPaper());
+		assertEquals("Write something", writePencilAction.getTextToDisplay());
+	}
 }

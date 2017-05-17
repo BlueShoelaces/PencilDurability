@@ -13,6 +13,7 @@ public class WritePencilAction implements PencilAction {
 		this.paper = paper;
 	}
 
+	@Override
 	public void perform() {
 		InputScannerWrapperSingletonInterface scannerWrapper = InputScannerWrapperSingleton
 				.instance();
@@ -31,7 +32,7 @@ public class WritePencilAction implements PencilAction {
 
 	@Override
 	public String getTextToDisplay() {
-		return null;
+		return "Write something";
 	}
 
 }
