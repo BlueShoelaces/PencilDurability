@@ -6,25 +6,20 @@ import nicole.durability.io.*;
 public class MockPencilWriterSingleton implements PencilWriterSingletonInterface {
 
 	private boolean runWasCalled = false;
-	private PencilInterface pencilPassedToRun;
+	private PencilWriterActionMenuInterface menuPassedToRun;
 
 	@Override
-	public void run(PaperInterface paper, PencilInterface pencil) {
+	public void run(PencilWriterActionMenuInterface pencilWriterActionMenu) {
+		this.menuPassedToRun = pencilWriterActionMenu;
 		this.runWasCalled = true;
-		this.pencilPassedToRun = pencil;
 	}
 
 	public boolean runWasCalled() {
 		return this.runWasCalled;
 	}
 
-	public PencilInterface getPencilPassedToRun() {
-		return this.pencilPassedToRun;
-	}
-
-	@Override
-	public void run(PencilWriterActionMenuInterface pencilWriterActionMenu) {
-
+	public PencilWriterActionMenuInterface getMenuPassedToRun() {
+		return this.menuPassedToRun;
 	}
 
 }

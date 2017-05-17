@@ -1,6 +1,5 @@
 package nicole.durability;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -12,10 +11,6 @@ import nicole.durability.mocks.*;
 import nicole.test.*;
 
 public class PencilWriterSingletonTest extends TestHelper {
-
-	private static final int PENCIL_LENGTH_5 = 5;
-	private static final int DURABILITY_500 = 500;
-	private String expectedTextToWrite = "Play it, Sam. Play 'As Time Goes By.'\n";
 	private PrintStream standardOut;
 	private ByteArrayOutputStream mockOutputStream;
 
@@ -46,32 +41,6 @@ public class PencilWriterSingletonTest extends TestHelper {
 		assertIsOfTypeAndGet(PencilWriterSingleton.class, secondInstance);
 
 		assertSame(firstInstance, secondInstance);
-	}
-
-	@Test
-	public void testRunWritesSomethingToPaper() throws Exception {
-		PaperInterface expectedPaper = new MockPaper();
-		MockPencil mockPencil = new MockPencil();
-
-		PencilWriterSingleton.instance().run(expectedPaper, mockPencil);
-
-		PaperInterface actualPaperWrittenToWithPencil = mockPencil.getPaperWrittenTo();
-		String actualTextToWrite = mockPencil.getTextWrittenToPaper();
-
-		assertSame(expectedPaper, actualPaperWrittenToWithPencil);
-		assertEquals(this.expectedTextToWrite, actualTextToWrite);
-	}
-
-	@Test
-	public void testRunShowsPaperAfterWritingToIt_functional() throws Exception {
-		Paper mockPaper = new Paper();
-		Pencil mockPencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
-
-		PencilWriterSingleton.instance().run(mockPaper, mockPencil);
-
-		String actualTextToShow = this.mockOutputStream.toString();
-
-		assertEquals(this.expectedTextToWrite, actualTextToShow);
 	}
 
 	@Test

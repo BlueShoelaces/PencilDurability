@@ -1,12 +1,12 @@
 package nicole.durability;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.lang.reflect.*;
 
 import org.junit.*;
 
+import nicole.durability.io.*;
 import nicole.durability.mocks.*;
 import nicole.test.*;
 
@@ -35,17 +35,11 @@ public class LauncherTest extends TestHelper {
 		Launcher.main(null);
 		assertTrue(this.mockPencilWriter.runWasCalled());
 
-		Pencil pencilPassedToRun = assertIsOfTypeAndGet(Pencil.class,
-				this.mockPencilWriter.getPencilPassedToRun());
+		PencilWriterActionMenu menuPassedToRun = assertIsOfTypeAndGet(PencilWriterActionMenu.class,
+				this.mockPencilWriter.getMenuPassedToRun());
 
-		int actualDurability = pencilPassedToRun.getCurrentDurability();
-		int expectedDurability = 500;
-		assertEquals(expectedDurability, actualDurability);
-
-		int actualPencilLength = pencilPassedToRun.getPencilLength();
-		int expectedPencilLength = 4;
-		assertEquals(expectedPencilLength, actualPencilLength);
-
+		assertIsOfTypeAndGet(PencilWriterActionMenuDisplayHelper.class,
+				menuPassedToRun.getDisplayHelper());
 	}
 
 }

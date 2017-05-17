@@ -19,4 +19,8 @@ public class TestHelper {
 				type.isAssignableFrom(object.getClass()));
 		return type.cast(object);
 	}
+
+	protected void assertFail(String failureMessage) {
+		assertTrue(failureMessage, false);
+	}
 }
