@@ -68,7 +68,7 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 
 	@Test
 	public void testDisplayPencilStats() throws Exception {
-		PencilWriterActionMenuDisplayHelper displayHelper = new PencilWriterActionMenuDisplayHelper();
+		DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();
 
 		MockPencil mockPencil = new MockPencil();
 
@@ -92,7 +92,7 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 		String expectedDurabilityText = "  Durability = " + pencilDurability + "\n";
 
 		String expectedStatsDisplayed = "\nYOUR PENCIL:\n" + expectedLengthText
-				+ expectedDurabilityText + "\n";
+				+ expectedDurabilityText;
 		return expectedStatsDisplayed;
 	}
 }

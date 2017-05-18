@@ -19,11 +19,11 @@ public class PencilWriterActionMenuDisplayHelper implements DisplayHelperInterfa
 		System.out.print(textToDisplay);
 	}
 
+	@Override
 	public void displayPencilStats(PencilInterface pencil) {
 		String textToDisplay = "\nYOUR PENCIL:\n";
 		textToDisplay += "  Pencil length = " + pencil.getPencilLength() + "\n";
 		textToDisplay += "  Durability = " + pencil.getCurrentDurability() + "\n";
-		textToDisplay += "\n";
 		System.out.print(textToDisplay);
 	}
 

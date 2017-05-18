@@ -9,14 +9,19 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 	private List<MenuAction> menuActions;
 	private DisplayHelperInterface displayHelper;
+	private Pencil pencil;
 
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
+		int pencilDurability = 500;
+		int pencilLength = 4;
+		this.pencil = new Pencil(pencilDurability, pencilLength);
 		createActionsForMainMenu();
 		this.displayHelper = displayHelper;
 	}
 
 	@Override
 	public void openMainMenu() {
+		this.displayHelper.displayPencilStats(this.pencil);
 		this.displayHelper.displayMainMenuWithUserPrompt(this.menuActions);
 		String userInputMenuChoice = InputScannerWrapperSingleton.instance().nextLine();
 
@@ -48,11 +53,13 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 	private void createActionsForMainMenu() {
 		this.menuActions = new ArrayList<MenuAction>();
-		int pencilDurability = 500;
-		int pencilLength = 4;
 		Paper paper = new Paper();
 
-		this.menuActions.add(new WriteAction(new Pencil(pencilDurability, pencilLength), paper));
+		this.menuActions.add(new WriteAction(this.pencil, paper));
 		this.menuActions.add(new ShowPaperAction(paper));
+	}
+
+	public Pencil getPencil() {
+		return this.pencil;
 	}
 }
