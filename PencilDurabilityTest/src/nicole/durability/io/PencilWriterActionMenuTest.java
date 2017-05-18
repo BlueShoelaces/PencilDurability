@@ -111,6 +111,48 @@ public class PencilWriterActionMenuTest extends TestHelper {
 	}
 
 	@Test
+	public void testOpenMainMenu_takesNoActionIfInputNumberIsTooLarge() throws Exception {
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
+
+		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		expectedPencilActions.clear();
+		MockPencilAction theOnlyPencilAction = new MockPencilAction();
+		expectedPencilActions.add(theOnlyPencilAction);
+
+		String numberThatIsTooLarge = "2";
+		this.mockInputScanner.setTextReturnedFromNextLine(numberThatIsTooLarge);
+		try {
+			pencilWriterActionMenu.openMainMenu();
+		} catch (IndexOutOfBoundsException exception) {
+			assertFail("Did you handle the IndexOutOfBoundsException?");
+		}
+
+		assertFalse(theOnlyPencilAction.performWasCalled());
+	}
+
+	@Test
+	public void testOpenMainMenu_takesNoActionIfInputNumberIsTooSmall() throws Exception {
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
+
+		List<PencilAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		expectedPencilActions.clear();
+		MockPencilAction theOnlyPencilAction = new MockPencilAction();
+		expectedPencilActions.add(theOnlyPencilAction);
+
+		String numberThatIsTooSmall = "0";
+		this.mockInputScanner.setTextReturnedFromNextLine(numberThatIsTooSmall);
+		try {
+			pencilWriterActionMenu.openMainMenu();
+		} catch (IndexOutOfBoundsException exception) {
+			assertFail("Did you handle the IndexOutOfBoundsException?");
+		}
+
+		assertFalse(theOnlyPencilAction.performWasCalled());
+	}
+
+	@Test
 	public void testOpenMainMenu_performsPencilActionBasedOnUserChoice_firstAction()
 			throws Exception {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(

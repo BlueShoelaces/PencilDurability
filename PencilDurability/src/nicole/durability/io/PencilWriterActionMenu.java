@@ -23,7 +23,14 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 		try {
 			int indexOfMenuChoice = Integer.parseInt(userInputMenuChoice) - 1;
 
-			this.menuActions.get(indexOfMenuChoice).perform();
+			boolean indexIsNotTooLarge = indexOfMenuChoice < this.menuActions.size();
+			boolean indexIsNotTooSmall = indexOfMenuChoice >= 0;
+
+			boolean indexIsJustRight = indexIsNotTooLarge && indexIsNotTooSmall;
+
+			if (indexIsJustRight) {
+				this.menuActions.get(indexOfMenuChoice).perform();
+			}
 
 		} catch (NumberFormatException exception) {
 
