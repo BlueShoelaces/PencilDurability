@@ -46,7 +46,7 @@ public class WriteActionTest extends TestHelper {
 
 	@Test
 	public void testGetters() throws Exception {
-		MockPencil mockPencil = new MockPencil();
+		PencilInterface mockPencil = new MockPencil();
 		MockPaper mockPaper = new MockPaper();
 		WriteAction writePencilAction = new WriteAction(mockPencil, mockPaper);
 

@@ -6,4 +6,6 @@ public interface PencilInterface {
 
 	int getCurrentDurability();
 
+	int getPencilLength();
+
 }

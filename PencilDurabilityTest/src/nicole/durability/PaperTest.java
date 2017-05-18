@@ -33,14 +33,15 @@ public class PaperTest extends TestHelper {
 	@Test
 	public void testPaperCanBeWrittenOn() throws Exception {
 		PaperInterface paper = new Paper();
-		String expectedStringWrittenToPaper = "To be or not to be?";
-		paper.write(expectedStringWrittenToPaper);
+		String visibleTextWritten = "To be or not to be?";
+		String expectedStringWrittenToPaper = visibleTextWritten + "\n";
+		paper.write(visibleTextWritten);
 
 		assertEquals("", this.mockOutputStream.toString());
 
 		paper.showPaper();
 
-		assertEquals(expectedStringWrittenToPaper, this.mockOutputStream.toString());
+		checkShowPaperAppendsNewLinesToStartAndEnd(expectedStringWrittenToPaper);
 	}
 
 	@Test
@@ -49,11 +50,11 @@ public class PaperTest extends TestHelper {
 		String expectedTextWritten = "";
 		paper.showPaper();
 
-		assertEquals(expectedTextWritten, this.mockOutputStream.toString());
+		checkShowPaperAppendsNewLinesToStartAndEnd(expectedTextWritten);
 	}
 
 	@Test
-	public void testWritingOnPaperAppendsNewText() throws Exception {
+	public void testWritingOnPaperAppendsNewText_withNewLinesInBetween() throws Exception {
 		PaperInterface paper = new Paper();
 
 		String firstTextWritten = "It is a truth universally acknowledged";
@@ -65,8 +66,10 @@ public class PaperTest extends TestHelper {
 		paper.write(thirdTextWritten);
 		paper.showPaper();
 
-		assertEquals(firstTextWritten + secondTextWritten + thirdTextWritten,
-				this.mockOutputStream.toString());
+		String expectedTextWrittenToPaper = firstTextWritten + "\n" + secondTextWritten + "\n"
+				+ thirdTextWritten + "\n";
+
+		checkShowPaperAppendsNewLinesToStartAndEnd(expectedTextWrittenToPaper);
 	}
 
 	@Test
@@ -74,11 +77,17 @@ public class PaperTest extends TestHelper {
 		Paper paper = new Paper();
 		String textAlreadyOnPaper = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis, je fume.";
 		paper.write(textAlreadyOnPaper);
-		assertEquals(textAlreadyOnPaper, paper.getTextOnPaper());
+		String textAlreadyOnPaperWithWhitespace = textAlreadyOnPaper + "\n";
+		assertEquals(textAlreadyOnPaperWithWhitespace, paper.getTextOnPaper());
 
 		paper.replaceWithWhitespace("je");
-		String expectedTextAfterErasing = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis,    fume.";
+		String expectedTextAfterErasing = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis,    fume.\n";
 
 		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+	}
+
+	private void checkShowPaperAppendsNewLinesToStartAndEnd(String expectedStringWrittenToPaper) {
+		String textWithNewLinesIncludedIncluded = "\n" + expectedStringWrittenToPaper + "\n";
+		assertEquals(textWithNewLinesIncludedIncluded, this.mockOutputStream.toString());
 	}
 }

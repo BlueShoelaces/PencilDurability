@@ -6,12 +6,12 @@ public class Paper implements PaperInterface {
 
 	@Override
 	public void write(String stringToWriteToPaper) {
-		this.textOnPaper += stringToWriteToPaper;
+		this.textOnPaper += stringToWriteToPaper + "\n";
 	}
 
 	@Override
 	public void showPaper() {
-		System.out.print(this.textOnPaper);
+		System.out.print("\n" + this.textOnPaper + "\n");
 	}
 
 	@Override
