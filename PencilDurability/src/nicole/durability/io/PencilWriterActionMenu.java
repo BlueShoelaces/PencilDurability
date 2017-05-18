@@ -7,7 +7,7 @@ import nicole.durability.actions.*;
 
 public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
-	private List<PencilAction> menuActions;
+	private List<MenuAction> menuActions;
 	private DisplayHelperInterface displayHelper;
 
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
@@ -38,7 +38,7 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 	}
 
 	@Override
-	public List<PencilAction> getMenuActions() {
+	public List<MenuAction> getMenuActions() {
 		return this.menuActions;
 	}
 
@@ -47,11 +47,11 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 	}
 
 	private void createActionsForMainMenu() {
-		this.menuActions = new ArrayList<PencilAction>();
+		this.menuActions = new ArrayList<MenuAction>();
 		int pencilDurability = 500;
 		int pencilLength = 4;
-		this.menuActions.add(
-				new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
-		this.menuActions.add(new ShowPaperAction());
+		this.menuActions
+				.add(new WriteAction(new Pencil(pencilDurability, pencilLength), new Paper()));
+		this.menuActions.add(new ShowPaperAction(new Paper()));
 	}
 }

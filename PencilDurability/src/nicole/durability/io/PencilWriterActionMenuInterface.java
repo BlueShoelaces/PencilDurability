@@ -6,7 +6,7 @@ import nicole.durability.actions.*;
 
 public interface PencilWriterActionMenuInterface {
 
-	List<PencilAction> getMenuActions();
+	List<MenuAction> getMenuActions();
 
 	void openMainMenu();
 

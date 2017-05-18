@@ -10,7 +10,7 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 	private boolean openMainMenuWasCalled = false;
 
 	@Override
-	public List<PencilAction> getMenuActions() {
+	public List<MenuAction> getMenuActions() {
 		return null;
 	}
 

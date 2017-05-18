@@ -36,9 +36,9 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 
 	@Test
 		public void testDisplayMainMenuWithUserPrompt() throws Exception {
-			MockPencilAction firstMockPencilAction = new MockPencilAction();
-			MockPencilAction secondMockPencilAction = new MockPencilAction();
-			MockPencilAction thirdMockPencilAction = new MockPencilAction();
+			MockMenuAction firstMockPencilAction = new MockMenuAction();
+			MockMenuAction secondMockPencilAction = new MockMenuAction();
+			MockMenuAction thirdMockPencilAction = new MockMenuAction();
 	
 			String expectedFirstActionText = "here's the first action";
 			String expectedSecondActionText = "here's the second action";
@@ -47,7 +47,7 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 			secondMockPencilAction.setTextToDisplay(expectedSecondActionText);
 			thirdMockPencilAction.setTextToDisplay(expectedThirdActionText);
 	
-			List<PencilAction> pencilActionsToDisplay = Arrays.asList(firstMockPencilAction,
+			List<MenuAction> pencilActionsToDisplay = Arrays.asList(firstMockPencilAction,
 					secondMockPencilAction, thirdMockPencilAction);
 	
 			DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();

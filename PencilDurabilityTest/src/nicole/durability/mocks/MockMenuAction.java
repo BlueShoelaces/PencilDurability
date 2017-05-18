@@ -2,7 +2,7 @@ package nicole.durability.mocks;
 
 import nicole.durability.actions.*;
 
-public class MockPencilAction implements PencilAction {
+public class MockMenuAction implements MenuAction {
 
 	private String textToDisplay;
 	private boolean performWasCalled = false;

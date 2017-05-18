@@ -6,6 +6,6 @@ import nicole.durability.actions.*;
 
 public interface DisplayHelperInterface {
 
-	void displayMainMenuWithUserPrompt(List<PencilAction> pencilActionsToDisplay);
+	void displayMainMenuWithUserPrompt(List<MenuAction> pencilActionsToDisplay);
 
 }

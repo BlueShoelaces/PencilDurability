@@ -1,6 +1,14 @@
 package nicole.durability.actions;
 
-public class ShowPaperAction implements PencilAction {
+import nicole.durability.*;
+
+public class ShowPaperAction implements MenuAction {
+
+	private PaperInterface paper;
+
+	public ShowPaperAction(PaperInterface paper) {
+		this.paper = paper;
+	}
 
 	@Override
 	public String getMenuTextToDisplay() {
@@ -9,8 +17,11 @@ public class ShowPaperAction implements PencilAction {
 
 	@Override
 	public void perform() {
-		// TODO Auto-generated method stub
+		this.paper.showPaper();
+	}
 
+	public PaperInterface getPaper() {
+		return this.paper;
 	}
 
 }

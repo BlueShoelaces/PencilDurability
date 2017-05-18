@@ -14,7 +14,7 @@ import nicole.durability.io.*;
 import nicole.durability.mocks.*;
 import nicole.test.*;
 
-public class WritePencilActionTest extends TestHelper {
+public class WriteActionTest extends TestHelper {
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockScannerWrapper;
@@ -48,7 +48,7 @@ public class WritePencilActionTest extends TestHelper {
 	public void testGetters() throws Exception {
 		MockPencil mockPencil = new MockPencil();
 		MockPaper mockPaper = new MockPaper();
-		WritePencilAction writePencilAction = new WritePencilAction(mockPencil, mockPaper);
+		WriteAction writePencilAction = new WriteAction(mockPencil, mockPaper);
 
 		assertSame(mockPencil, writePencilAction.getPencil());
 		assertSame(mockPaper, writePencilAction.getPaper());
@@ -56,12 +56,12 @@ public class WritePencilActionTest extends TestHelper {
 
 	@Test
 	public void testImplementsInterface() throws Exception {
-		assertImplementsInterface(WritePencilAction.class, PencilAction.class);
+		assertImplementsInterface(WriteAction.class, MenuAction.class);
 	}
 
 	@Test
 	public void testPerform_PromptsUserForTextToWrite() throws Exception {
-		WritePencilAction writePencilAction = new WritePencilAction(new MockPencil(),
+		WriteAction writePencilAction = new WriteAction(new MockPencil(),
 				new MockPaper());
 		writePencilAction.perform();
 
@@ -77,7 +77,7 @@ public class WritePencilActionTest extends TestHelper {
 		String expectedTextWrittenToPaper = "To obtain, something of equal value must be lost.";
 		this.mockScannerWrapper.setTextReturnedFromNextLine(expectedTextWrittenToPaper);
 
-		WritePencilAction writePencilAction = new WritePencilAction(mockPencil, mockPaper);
+		WriteAction writePencilAction = new WriteAction(mockPencil, mockPaper);
 		writePencilAction.perform();
 
 		assertTrue(this.mockScannerWrapper.nextLineWasCalled());
@@ -91,7 +91,7 @@ public class WritePencilActionTest extends TestHelper {
 
 	@Test
 	public void testGetMenuTextToDisplay() throws Exception {
-		WritePencilAction writePencilAction = new WritePencilAction(new MockPencil(),
+		WriteAction writePencilAction = new WriteAction(new MockPencil(),
 				new MockPaper());
 		assertEquals("Write something", writePencilAction.getMenuTextToDisplay());
 	}

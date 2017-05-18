@@ -3,12 +3,12 @@ package nicole.durability.actions;
 import nicole.durability.*;
 import nicole.durability.io.*;
 
-public class WritePencilAction implements PencilAction {
+public class WriteAction implements MenuAction {
 
 	private PencilInterface pencil;
 	private PaperInterface paper;
 
-	public WritePencilAction(PencilInterface pencil, PaperInterface paper) {
+	public WriteAction(PencilInterface pencil, PaperInterface paper) {
 		this.pencil = pencil;
 		this.paper = paper;
 	}

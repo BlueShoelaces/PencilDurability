@@ -1,6 +1,6 @@
 package nicole.durability.actions;
 
-public interface PencilAction {
+public interface MenuAction {
 
 	public String getMenuTextToDisplay();
 

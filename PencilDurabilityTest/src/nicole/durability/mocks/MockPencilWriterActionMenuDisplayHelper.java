@@ -7,14 +7,14 @@ import nicole.durability.io.*;
 
 public class MockPencilWriterActionMenuDisplayHelper implements DisplayHelperInterface {
 
-	private List<PencilAction> pencilActionsPassedToDisplay;
+	private List<MenuAction> pencilActionsPassedToDisplay;
 
 	@Override
-	public void displayMainMenuWithUserPrompt(List<PencilAction> pencilActionsToDisplay) {
+	public void displayMainMenuWithUserPrompt(List<MenuAction> pencilActionsToDisplay) {
 		this.pencilActionsPassedToDisplay = pencilActionsToDisplay;
 	}
 
-	public List<PencilAction> getActionListPassedToDisplay() {
+	public List<MenuAction> getActionListPassedToDisplay() {
 		return this.pencilActionsPassedToDisplay;
 	}
 
