@@ -8,7 +8,7 @@ public class MockPencilAction implements PencilAction {
 	private boolean performWasCalled = false;
 
 	@Override
-	public String getTextToDisplay() {
+	public String getMenuTextToDisplay() {
 		return this.textToDisplay;
 	}
 

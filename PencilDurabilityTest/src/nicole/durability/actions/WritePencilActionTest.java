@@ -90,9 +90,9 @@ public class WritePencilActionTest extends TestHelper {
 	}
 
 	@Test
-	public void testGetTextToDisplay() throws Exception {
+	public void testGetMenuTextToDisplay() throws Exception {
 		WritePencilAction writePencilAction = new WritePencilAction(new MockPencil(),
 				new MockPaper());
-		assertEquals("Write something", writePencilAction.getTextToDisplay());
+		assertEquals("Write something", writePencilAction.getMenuTextToDisplay());
 	}
 }

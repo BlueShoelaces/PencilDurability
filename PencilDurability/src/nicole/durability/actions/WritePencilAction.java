@@ -31,7 +31,7 @@ public class WritePencilAction implements PencilAction {
 	}
 
 	@Override
-	public String getTextToDisplay() {
+	public String getMenuTextToDisplay() {
 		return "Write something";
 	}
 

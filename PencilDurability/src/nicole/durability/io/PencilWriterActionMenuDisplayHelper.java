@@ -11,7 +11,7 @@ public class PencilWriterActionMenuDisplayHelper implements DisplayHelperInterfa
 		String textToDisplay = "MAIN MENU:\n";
 		int menuNumber = 1;
 		for (PencilAction pencilAction : pencilActionsToDisplay) {
-			textToDisplay += " " + menuNumber + "  " + pencilAction.getTextToDisplay() + "\n";
+			textToDisplay += " " + menuNumber + "  " + pencilAction.getMenuTextToDisplay() + "\n";
 			menuNumber++;
 		}
 		textToDisplay += "Select a number and hit [ENTER]\n";

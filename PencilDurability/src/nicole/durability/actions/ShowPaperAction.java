@@ -3,9 +3,8 @@ package nicole.durability.actions;
 public class ShowPaperAction implements PencilAction {
 
 	@Override
-	public String getTextToDisplay() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getMenuTextToDisplay() {
+		return "Show paper";
 	}
 
 	@Override
