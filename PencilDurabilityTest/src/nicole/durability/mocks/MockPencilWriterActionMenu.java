@@ -7,7 +7,7 @@ import nicole.durability.io.*;
 
 public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
-	private boolean openMainMenuWasCalled = false;
+	private int numberOfTimesOpenMainMenuWasCalled = 0;
 
 	@Override
 	public List<MenuAction> getMenuActions() {
@@ -16,11 +16,11 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 
 	@Override
 	public void openMainMenu() {
-		this.openMainMenuWasCalled = true;
+		this.numberOfTimesOpenMainMenuWasCalled++;
 	}
 
-	public boolean openMainMenuWasCalled() {
-		return this.openMainMenuWasCalled;
+	public int getNumberOfTimesOpenMainMenuWasCalled() {
+		return this.numberOfTimesOpenMainMenuWasCalled;
 	}
 
 }

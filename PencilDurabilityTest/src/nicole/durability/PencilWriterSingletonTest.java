@@ -44,11 +44,41 @@ public class PencilWriterSingletonTest extends TestHelper {
 	}
 
 	@Test
-	public void testRunLaunchesMainMenu() throws Exception {
-		MockPencilWriterActionMenu mockMenu = new MockPencilWriterActionMenu();
-		PencilWriterSingleton.instance().run(mockMenu);
+	public void testRunLaunchesMainMenuContinually() throws Exception {
+		ThreadClassForTestingRun threadClassForTestingRun = new ThreadClassForTestingRun();
 
-		boolean mainMenuWasCalled = mockMenu.openMainMenuWasCalled();
-		assertTrue(mainMenuWasCalled);
+		long timeout = 1000;
+		long threadRunTime = 0;
+		long startTime = System.currentTimeMillis();
+		threadClassForTestingRun.start();
+
+		while (threadRunTime < timeout) {
+			threadRunTime = System.currentTimeMillis() - startTime;
+		}
+
+		threadClassForTestingRun.interrupt();
+
+		int timesOpenMainMenuWasCalled = threadClassForTestingRun.timesOpenMainMenuWasCalled();
+
+		boolean mainMenuLoopedAtLeast100Times = timesOpenMainMenuWasCalled > 100;
+		assertTrue("Main Menu was only opened " + timesOpenMainMenuWasCalled + " time(s).",
+				mainMenuLoopedAtLeast100Times);
+	}
+
+	private class ThreadClassForTestingRun extends Thread {
+		private MockPencilWriterActionMenu mockMenu;
+
+		public ThreadClassForTestingRun() {
+			this.mockMenu = new MockPencilWriterActionMenu();
+		}
+
+		@Override
+		public void run() {
+			PencilWriterSingleton.instance().run(this.mockMenu);
+		}
+
+		public int timesOpenMainMenuWasCalled() {
+			return this.mockMenu.getNumberOfTimesOpenMainMenuWasCalled();
+		}
 	}
 }
