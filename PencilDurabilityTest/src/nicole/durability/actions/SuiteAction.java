@@ -5,7 +5,7 @@ import org.junit.runners.*;
 import org.junit.runners.Suite.*;
 
 @RunWith(Suite.class)
-@SuiteClasses({ ShowPaperActionTest.class, WriteActionTest.class })
+@SuiteClasses({ EraseActionTest.class, ShowPaperActionTest.class, WriteActionTest.class })
 public class SuiteAction {
 
 }

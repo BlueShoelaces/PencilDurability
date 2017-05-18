@@ -14,7 +14,7 @@ import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
 
-	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 2;
+	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 3;
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockInputScanner;
@@ -54,26 +54,19 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		List<MenuAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(EXPECTED_NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
-		int expectedWritePencilIndex = 0;
+		int expectedWriteIndex = 0;
 		WriteAction actualWritePencilAction = checkWritePencilAction(actualMenuActions,
-				expectedWritePencilIndex);
+				expectedWriteIndex);
 		assertSame(pencil, actualWritePencilAction.getPencil());
 
 		int expectedShowPaperIndex = 1;
 		ShowPaperAction actualShowPaperAction = checkShowPaperAction(actualMenuActions,
 				expectedShowPaperIndex);
-
 		assertSame(actualWritePencilAction.getPaper(), actualShowPaperAction.getPaper());
-	}
 
-	private ShowPaperAction checkShowPaperAction(List<MenuAction> actualMenuActions,
-			int expectedShowPaperIndex) {
-		MenuAction expectedShowPaperAction = actualMenuActions.get(expectedShowPaperIndex);
-		ShowPaperAction actualShowPaperAction = assertIsOfTypeAndGet(ShowPaperAction.class,
-				expectedShowPaperAction);
-		assertIsOfTypeAndGet(Paper.class, actualShowPaperAction.getPaper());
+		int expectedEraseIndex = 2;
+		checkEraseAction(actualMenuActions, expectedEraseIndex);
 
-		return actualShowPaperAction;
 	}
 
 	private WriteAction checkWritePencilAction(List<MenuAction> actualMenuActions,
@@ -96,6 +89,25 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertIsOfTypeAndGet(Paper.class, actualWritePencilAction.getPaper());
 
 		return actualWritePencilAction;
+	}
+
+	private ShowPaperAction checkShowPaperAction(List<MenuAction> actualMenuActions,
+			int expectedShowPaperIndex) {
+		MenuAction expectedShowPaperAction = actualMenuActions.get(expectedShowPaperIndex);
+		ShowPaperAction actualShowPaperAction = assertIsOfTypeAndGet(ShowPaperAction.class,
+				expectedShowPaperAction);
+		assertIsOfTypeAndGet(Paper.class, actualShowPaperAction.getPaper());
+
+		return actualShowPaperAction;
+	}
+
+	private EraseAction checkEraseAction(List<MenuAction> actualMenuActions,
+			int expectedEraseIndex) {
+		MenuAction expectedEraseAction = actualMenuActions.get(expectedEraseIndex);
+		EraseAction actualEraseAction = assertIsOfTypeAndGet(EraseAction.class,
+				expectedEraseAction);
+
+		return actualEraseAction;
 	}
 
 	@Test
