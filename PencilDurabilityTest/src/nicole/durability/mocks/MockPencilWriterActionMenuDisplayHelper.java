@@ -10,7 +10,7 @@ public class MockPencilWriterActionMenuDisplayHelper implements DisplayHelperInt
 	private List<PencilAction> pencilActionsPassedToDisplay;
 
 	@Override
-	public void display(List<PencilAction> pencilActionsToDisplay) {
+	public void displayMainMenuWithUserPrompt(List<PencilAction> pencilActionsToDisplay) {
 		this.pencilActionsPassedToDisplay = pencilActionsToDisplay;
 	}
 

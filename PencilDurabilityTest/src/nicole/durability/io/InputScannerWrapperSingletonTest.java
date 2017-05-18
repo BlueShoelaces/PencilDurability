@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 
 import java.io.*;
+import java.lang.reflect.*;
 
 import org.junit.*;
 
@@ -22,6 +23,7 @@ public class InputScannerWrapperSingletonTest extends TestHelper {
 	@After
 	public void tearDown() throws Exception {
 		System.setIn(this.standardIn);
+		resetSingleton();
 	}
 
 	@Test
@@ -52,18 +54,25 @@ public class InputScannerWrapperSingletonTest extends TestHelper {
 
 	@Test
 	public void testNextLine() throws Exception {
+		String expectedFirstLine = "It doesn't have to rhyme";
+		String expectedSecondLine = "So don't you feed me a line";
+		ByteArrayInputStream mockInputStream = new ByteArrayInputStream(
+				(expectedFirstLine + "\n" + expectedSecondLine).getBytes());
+		System.setIn(mockInputStream);
+
 		InputScannerWrapperSingletonInterface inputScannerWrapper = InputScannerWrapperSingleton
 				.instance();
-		String expectedNextLine = "It doesn't have to rhyme";
-		System.setIn(new ByteArrayInputStream(expectedNextLine.getBytes()));
 
 		String actualNextLine = inputScannerWrapper.nextLine();
-		assertEquals(expectedNextLine, actualNextLine);
-
-		expectedNextLine = "So don't you feed me a line";
-		System.setIn(new ByteArrayInputStream(expectedNextLine.getBytes()));
+		assertEquals(expectedFirstLine, actualNextLine);
 
 		actualNextLine = inputScannerWrapper.nextLine();
-		assertEquals(expectedNextLine, actualNextLine);
+		assertEquals(expectedSecondLine, actualNextLine);
+	}
+
+	private void resetSingleton() throws NoSuchFieldException, IllegalAccessException {
+		Field scannerWrapperField = InputScannerWrapperSingleton.class.getDeclaredField("instance");
+		scannerWrapperField.setAccessible(true);
+		scannerWrapperField.set(null, null);
 	}
 }

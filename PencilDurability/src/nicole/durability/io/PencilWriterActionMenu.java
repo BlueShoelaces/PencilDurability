@@ -17,8 +17,17 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 	@Override
 	public void openMainMenu() {
-		this.displayHelper.display(this.menuActions);
-		this.menuActions.get(0).perform();
+		this.displayHelper.displayMainMenuWithUserPrompt(this.menuActions);
+		String userInputMenuChoice = InputScannerWrapperSingleton.instance().nextLine();
+
+		try {
+			int indexOfMenuChoice = Integer.parseInt(userInputMenuChoice) - 1;
+
+			this.menuActions.get(indexOfMenuChoice).perform();
+
+		} catch (NumberFormatException exception) {
+
+		}
 	}
 
 	@Override

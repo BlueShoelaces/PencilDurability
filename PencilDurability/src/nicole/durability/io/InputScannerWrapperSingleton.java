@@ -7,9 +7,10 @@ public class InputScannerWrapperSingleton implements InputScannerWrapperSingleto
 
 	private static InputScannerWrapperSingletonInterface instance;
 	private static InputStream inputStream = System.in;
+	private Scanner scanner;
 
 	private InputScannerWrapperSingleton() {
-
+		this.scanner = new Scanner(System.in);
 	}
 
 	public static InputScannerWrapperSingletonInterface instance() {
@@ -26,9 +27,7 @@ public class InputScannerWrapperSingleton implements InputScannerWrapperSingleto
 
 	@Override
 	public String nextLine() {
-		Scanner scanner = new Scanner(System.in);
-		String nextLineFromScanner = scanner.nextLine();
-		scanner.close();
+		String nextLineFromScanner = this.scanner.nextLine();
 		return nextLineFromScanner;
 	}
 

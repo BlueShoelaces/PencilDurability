@@ -35,33 +35,34 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 	}
 
 	@Test
-	public void testDisplay() throws Exception {
-		MockPencilAction firstMockPencilAction = new MockPencilAction();
-		MockPencilAction secondMockPencilAction = new MockPencilAction();
-		MockPencilAction thirdMockPencilAction = new MockPencilAction();
-
-		String expectedFirstActionText = "here's the first action";
-		String expectedSecondActionText = "here's the second action";
-		String expectedThirdActionText = "here's the third action";
-		firstMockPencilAction.setTextToDisplay(expectedFirstActionText);
-		secondMockPencilAction.setTextToDisplay(expectedSecondActionText);
-		thirdMockPencilAction.setTextToDisplay(expectedThirdActionText);
-
-		List<PencilAction> pencilActionsToDisplay = Arrays.asList(firstMockPencilAction,
-				secondMockPencilAction, thirdMockPencilAction);
-
-		DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();
-		displayHelper.display(pencilActionsToDisplay);
-
-		String mainMenuTitle = "MAIN MENU:\n";
-		String expectedFirstMenuItemText = " 1  " + expectedFirstActionText + "\n";
-		String expectedSecondMenuItemText = " 2  " + expectedSecondActionText + "\n";
-		String expectedThirdMenuItemText = " 3  " + expectedThirdActionText + "\n";
-		String expectedTextToDisplay = mainMenuTitle + expectedFirstMenuItemText
-				+ expectedSecondMenuItemText + expectedThirdMenuItemText;
-
-		String actualTextToDisplay = this.mockOutputStream.toString();
-
-		assertEquals(expectedTextToDisplay, actualTextToDisplay);
-	}
+		public void testDisplayMainMenuWithUserPrompt() throws Exception {
+			MockPencilAction firstMockPencilAction = new MockPencilAction();
+			MockPencilAction secondMockPencilAction = new MockPencilAction();
+			MockPencilAction thirdMockPencilAction = new MockPencilAction();
+	
+			String expectedFirstActionText = "here's the first action";
+			String expectedSecondActionText = "here's the second action";
+			String expectedThirdActionText = "here's the third action";
+			firstMockPencilAction.setTextToDisplay(expectedFirstActionText);
+			secondMockPencilAction.setTextToDisplay(expectedSecondActionText);
+			thirdMockPencilAction.setTextToDisplay(expectedThirdActionText);
+	
+			List<PencilAction> pencilActionsToDisplay = Arrays.asList(firstMockPencilAction,
+					secondMockPencilAction, thirdMockPencilAction);
+	
+			DisplayHelperInterface displayHelper = new PencilWriterActionMenuDisplayHelper();
+			displayHelper.displayMainMenuWithUserPrompt(pencilActionsToDisplay);
+	
+			String mainMenuTitle = "MAIN MENU:\n";
+			String expectedFirstMenuItemText = " 1  " + expectedFirstActionText + "\n";
+			String expectedSecondMenuItemText = " 2  " + expectedSecondActionText + "\n";
+			String expectedThirdMenuItemText = " 3  " + expectedThirdActionText + "\n";
+			String userPrompt = "Select a number and hit [ENTER]\n";
+			String expectedTextToDisplay = mainMenuTitle + expectedFirstMenuItemText
+					+ expectedSecondMenuItemText + expectedThirdMenuItemText + userPrompt;
+	
+			String actualTextToDisplay = this.mockOutputStream.toString();
+	
+			assertEquals(expectedTextToDisplay, actualTextToDisplay);
+		}
 }
