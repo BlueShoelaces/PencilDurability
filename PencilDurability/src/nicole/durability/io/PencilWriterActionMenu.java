@@ -52,5 +52,6 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 		int pencilLength = 4;
 		this.menuActions.add(
 				new WritePencilAction(new Pencil(pencilDurability, pencilLength), new Paper()));
+		this.menuActions.add(new ShowPaperAction());
 	}
 }

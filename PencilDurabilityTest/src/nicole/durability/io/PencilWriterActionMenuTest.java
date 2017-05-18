@@ -14,7 +14,7 @@ import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
 
-	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 1;
+	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 2;
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockInputScanner;
@@ -42,7 +42,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 	}
 
 	@Test
-	public void testConstructor() throws Exception {
+	public void testConstructor_setsUpActionsCorrectly() throws Exception {
 		MockPencilWriterActionMenuDisplayHelper expectedDisplayHelper = new MockPencilWriterActionMenuDisplayHelper();
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				expectedDisplayHelper);
@@ -51,21 +51,36 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		List<PencilAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(EXPECTED_NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
-		PencilAction firstMenuAction = actualMenuActions.get(0);
-		WritePencilAction writePencilAction = assertIsOfTypeAndGet(WritePencilAction.class,
-				firstMenuAction);
+		int expectedWritePencilIndex = 0;
+		checkWritePencilAction(actualMenuActions, expectedWritePencilIndex);
 
-		Pencil pencil = assertIsOfTypeAndGet(Pencil.class, writePencilAction.getPencil());
+		int expectedShowPaperIndex = 1;
+		checkShowPaperAction(actualMenuActions, expectedShowPaperIndex);
+	}
 
-		int actualDurability = pencil.getCurrentDurability();
+	private void checkShowPaperAction(List<PencilAction> actualMenuActions,
+			int expectedShowPaperIndex) {
+		PencilAction expectedShowPaperAction = actualMenuActions.get(expectedShowPaperIndex);
+		assertIsOfTypeAndGet(ShowPaperAction.class, expectedShowPaperAction);
+	}
+
+	private void checkWritePencilAction(List<PencilAction> actualMenuActions,
+			int expectedWritePencilIndex) {
+		PencilAction expectedWritePencilAction = actualMenuActions.get(expectedWritePencilIndex);
+		WritePencilAction actualWritePencilAction = assertIsOfTypeAndGet(WritePencilAction.class,
+				expectedWritePencilAction);
+
+		Pencil actualPencil = assertIsOfTypeAndGet(Pencil.class, actualWritePencilAction.getPencil());
+
+		int actualDurability = actualPencil.getCurrentDurability();
 		int expectedDurability = 500;
 		assertEquals(expectedDurability, actualDurability);
 
-		int actualPencilLength = pencil.getPencilLength();
+		int actualPencilLength = actualPencil.getPencilLength();
 		int expectedPencilLength = 4;
 		assertEquals(expectedPencilLength, actualPencilLength);
 
-		assertIsOfTypeAndGet(Paper.class, writePencilAction.getPaper());
+		assertIsOfTypeAndGet(Paper.class, actualWritePencilAction.getPaper());
 	}
 
 	@Test
