@@ -52,21 +52,27 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertEquals(EXPECTED_NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
 		int expectedWritePencilIndex = 0;
-		checkWritePencilAction(actualMenuActions, expectedWritePencilIndex);
+		WriteAction actualWritePencilAction = checkWritePencilAction(actualMenuActions,
+				expectedWritePencilIndex);
 
 		int expectedShowPaperIndex = 1;
-		checkShowPaperAction(actualMenuActions, expectedShowPaperIndex);
+		ShowPaperAction actualShowPaperAction = checkShowPaperAction(actualMenuActions,
+				expectedShowPaperIndex);
+
+		assertSame(actualWritePencilAction.getPaper(), actualShowPaperAction.getPaper());
 	}
 
-	private void checkShowPaperAction(List<MenuAction> actualMenuActions,
+	private ShowPaperAction checkShowPaperAction(List<MenuAction> actualMenuActions,
 			int expectedShowPaperIndex) {
 		MenuAction expectedShowPaperAction = actualMenuActions.get(expectedShowPaperIndex);
 		ShowPaperAction actualShowPaperAction = assertIsOfTypeAndGet(ShowPaperAction.class,
 				expectedShowPaperAction);
 		assertIsOfTypeAndGet(Paper.class, actualShowPaperAction.getPaper());
+
+		return actualShowPaperAction;
 	}
 
-	private void checkWritePencilAction(List<MenuAction> actualMenuActions,
+	private WriteAction checkWritePencilAction(List<MenuAction> actualMenuActions,
 			int expectedWritePencilIndex) {
 		MenuAction expectedWritePencilAction = actualMenuActions.get(expectedWritePencilIndex);
 		WriteAction actualWritePencilAction = assertIsOfTypeAndGet(WriteAction.class,
@@ -84,6 +90,8 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertEquals(expectedPencilLength, actualPencilLength);
 
 		assertIsOfTypeAndGet(Paper.class, actualWritePencilAction.getPaper());
+
+		return actualWritePencilAction;
 	}
 
 	@Test
