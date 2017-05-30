@@ -8,4 +8,6 @@ public interface PencilInterface {
 
 	int getPencilLength();
 
+	void erase(PaperInterface paper, String textToErase);
+
 }

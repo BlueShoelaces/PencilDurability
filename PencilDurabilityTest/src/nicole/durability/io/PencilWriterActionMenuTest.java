@@ -47,7 +47,8 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				expectedDisplayHelper);
 
-		Pencil pencil = assertIsOfTypeAndGet(Pencil.class, pencilWriterActionMenu.getPencil());
+		PencilInterface expectedPencilPassedToActions = assertIsOfTypeAndGet(Pencil.class,
+				pencilWriterActionMenu.getPencil());
 
 		assertSame(expectedDisplayHelper, pencilWriterActionMenu.getDisplayHelper());
 
@@ -57,15 +58,19 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		int expectedWriteIndex = 0;
 		WriteAction actualWritePencilAction = checkWritePencilAction(actualMenuActions,
 				expectedWriteIndex);
-		assertSame(pencil, actualWritePencilAction.getPencil());
+		assertSame(expectedPencilPassedToActions, actualWritePencilAction.getPencil());
+		PaperInterface expectedPaperPassedToActions = assertIsOfTypeAndGet(Paper.class,
+				actualWritePencilAction.getPaper());
 
 		int expectedShowPaperIndex = 1;
 		ShowPaperAction actualShowPaperAction = checkShowPaperAction(actualMenuActions,
 				expectedShowPaperIndex);
-		assertSame(actualWritePencilAction.getPaper(), actualShowPaperAction.getPaper());
+		assertSame(expectedPaperPassedToActions, actualShowPaperAction.getPaper());
 
 		int expectedEraseIndex = 2;
-		checkEraseAction(actualMenuActions, expectedEraseIndex);
+		EraseAction actualEraseAction = checkEraseAction(actualMenuActions, expectedEraseIndex);
+		assertSame(expectedPencilPassedToActions, actualEraseAction.getPencil());
+		assertSame(expectedPaperPassedToActions, actualEraseAction.getPaper());
 
 	}
 
@@ -75,7 +80,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		WriteAction actualWritePencilAction = assertIsOfTypeAndGet(WriteAction.class,
 				expectedWritePencilAction);
 
-		Pencil actualPencil = assertIsOfTypeAndGet(Pencil.class,
+		PencilInterface actualPencil = assertIsOfTypeAndGet(Pencil.class,
 				actualWritePencilAction.getPencil());
 
 		int actualDurability = actualPencil.getCurrentDurability();
@@ -126,7 +131,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 
 		assertTrue(mockDisplayHelper.displayPencilStatsWasCalled());
 
-		Pencil expectedPencil = assertIsOfTypeAndGet(Pencil.class,
+		PencilInterface expectedPencil = assertIsOfTypeAndGet(Pencil.class,
 				pencilWriterActionMenu.getPencil());
 		PencilInterface actualPencilPassedToDisplayStats = mockDisplayHelper
 				.getPencilPassedToDisplayPencilStats();

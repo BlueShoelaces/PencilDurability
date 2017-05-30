@@ -9,7 +9,7 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 	private List<MenuAction> menuActions;
 	private DisplayHelperInterface displayHelper;
-	private Pencil pencil;
+	private PencilInterface pencil;
 
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
 		int pencilDurability = 500;
@@ -58,10 +58,10 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 		this.menuActions.add(new WriteAction(this.pencil, paper));
 		this.menuActions.add(new ShowPaperAction(paper));
-		this.menuActions.add(new EraseAction());
+		this.menuActions.add(new EraseAction(this.pencil, paper));
 	}
 
-	public Pencil getPencil() {
+	public PencilInterface getPencil() {
 		return this.pencil;
 	}
 }

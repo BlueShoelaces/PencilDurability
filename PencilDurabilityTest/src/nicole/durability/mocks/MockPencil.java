@@ -8,11 +8,19 @@ public class MockPencil implements PencilInterface {
 	private PaperInterface paperWrittenTo;
 	private int currentDurability = 50;
 	private int currentLength = 1;
+	private PaperInterface paperErasedFrom;
+	private String textErasedFromPaper;
 
 	@Override
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
 		this.textWrittenToPaper = textToWrite;
 		this.paperWrittenTo = paper;
+	}
+
+	@Override
+	public void erase(PaperInterface paper, String textToErase) {
+		this.paperErasedFrom = paper;
+		this.textErasedFromPaper = textToErase;
 	}
 
 	public PaperInterface getPaperWrittenTo() {
@@ -41,4 +49,11 @@ public class MockPencil implements PencilInterface {
 		this.currentLength = currentLength;
 	}
 
+	public PaperInterface getPaperErasedFrom() {
+		return this.paperErasedFrom;
+	}
+
+	public String getTextErasedFromPaper() {
+		return this.textErasedFromPaper;
+	}
 }

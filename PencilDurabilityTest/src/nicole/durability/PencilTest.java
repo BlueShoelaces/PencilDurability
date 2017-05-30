@@ -24,7 +24,7 @@ public class PencilTest extends TestHelper {
 		int expectedDurability = 1500;
 		int expectedPencilLength = PENCIL_LENGTH_5;
 
-		Pencil pencil = new Pencil(expectedDurability, expectedPencilLength);
+		PencilInterface pencil = new Pencil(expectedDurability, expectedPencilLength);
 		int actualDurability = pencil.getCurrentDurability();
 		int actualPencilLength = pencil.getPencilLength();
 
@@ -49,7 +49,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testPencilPointDegradesWithUse_lowerCaseExpendsOneGraphitePoint() throws Exception {
 		int startingDurability = 1500;
-		Pencil pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
 		String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
 		pencil.writeOnPaper(new MockPaper(), lowerCaseLetters);
 
@@ -63,7 +63,7 @@ public class PencilTest extends TestHelper {
 	public void testPencilPointDegradesWithUse_punctuationAndNumbersExpendOneGraphitePoint()
 			throws Exception {
 		int startingDurability = 1500;
-		Pencil pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
 		String punctuation = ".?!,;:-()[]{}'\"0123456789";
 		pencil.writeOnPaper(new MockPaper(), punctuation);
 
@@ -77,7 +77,7 @@ public class PencilTest extends TestHelper {
 	public void testPencilPointDegradesWithUse_upperCaseExpendsTwoGraphitePoints()
 			throws Exception {
 		int startingDurability = 1500;
-		Pencil pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
 		String upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		pencil.writeOnPaper(new MockPaper(), upperCaseLetters);
 
@@ -90,7 +90,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testPencilPointDegradesWithUse_whitespaceExpendsNoGraphite() throws Exception {
 		int startingDurability = 1500;
-		Pencil pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
 		String whitespace = "\t   \n";
 		pencil.writeOnPaper(new MockPaper(), whitespace);
 
@@ -103,7 +103,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testDullPencilWritesOnlyBlankSpaces() throws Exception {
 		int durability = 0;
-		Pencil pencil = new Pencil(durability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5);
 		MockPaper mockPaper = new MockPaper();
 
 		String textPencilIsDirectedToWrite = "I should sharpen my pencil...";
@@ -175,7 +175,7 @@ public class PencilTest extends TestHelper {
 
 	@Test
 	public void testErase() throws Exception {
-		Pencil pencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
 		MockPaper mockPaper = new MockPaper();
 
 		String expectedTextErased = "Erase me!";

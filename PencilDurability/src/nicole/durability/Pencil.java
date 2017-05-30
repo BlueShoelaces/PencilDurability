@@ -77,6 +77,7 @@ public class Pencil implements PencilInterface {
 		return this.pencilLength;
 	}
 
+	@Override
 	public void erase(PaperInterface paper, String textToErase) {
 		paper.replaceWithWhitespace(textToErase);
 	}
