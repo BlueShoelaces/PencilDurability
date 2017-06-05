@@ -1,0 +1,20 @@
+# Copied source files
+/src/main/java/*
+/src/test/java/*
+
+# Compiled files
+*.class
+
+# Packages
+*.jar
+*.war
+*.ear
+
+# Gradle stuff
+.gradle
+/build/
+gradle-app.setting
+.gradletasknamecache
+
+# Don't ignore the Gradle wrapper jar
+!gradle-wrapper.jar
