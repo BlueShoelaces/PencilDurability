@@ -14,7 +14,7 @@ import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
 
-	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 3;
+	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 4;
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockInputScanner;
@@ -72,6 +72,19 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		assertSame(expectedPencilPassedToActions, actualEraseAction.getPencil());
 		assertSame(expectedPaperPassedToActions, actualEraseAction.getPaper());
 
+		int expectedSharpenIndex = 3;
+		SharpenPencilAction sharpenPencilAction = checkSharpenPencilAction(actualMenuActions,
+				expectedSharpenIndex);
+		assertSame(expectedPencilPassedToActions, sharpenPencilAction.getPencil());
+
+	}
+
+	private SharpenPencilAction checkSharpenPencilAction(List<MenuAction> actualMenuActions,
+			int expectedSharpenIndex) {
+		MenuAction expectedSharpenPencilAction = actualMenuActions.get(expectedSharpenIndex);
+		SharpenPencilAction actualSharpenPencilAction = assertIsOfTypeAndGet(
+				SharpenPencilAction.class, expectedSharpenPencilAction);
+		return actualSharpenPencilAction;
 	}
 
 	private WriteAction checkWritePencilAction(List<MenuAction> actualMenuActions,
