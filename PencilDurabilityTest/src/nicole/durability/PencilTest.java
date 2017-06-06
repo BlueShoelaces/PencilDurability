@@ -120,7 +120,7 @@ public class PencilTest extends TestHelper {
 
 		PaperInterface mockPaper = new MockPaper();
 		int originalDurability1 = 500;
-		Pencil pencil1 = new Pencil(originalDurability1, PENCIL_LENGTH_5);
+		PencilInterface pencil1 = new Pencil(originalDurability1, PENCIL_LENGTH_5);
 
 		String textToWrite = "BILL: Pai Mei taught you the Five Point Palm Exploding Heart Technique?\n";
 		pencil1.writeOnPaper(mockPaper, textToWrite);
@@ -132,7 +132,7 @@ public class PencilTest extends TestHelper {
 		assertEquals(pencil1.getCurrentDurability(), originalDurability1);
 
 		int originalDurability2 = 50;
-		Pencil pencil2 = new Pencil(originalDurability2, PENCIL_LENGTH_5);
+		PencilInterface pencil2 = new Pencil(originalDurability2, PENCIL_LENGTH_5);
 		pencil2.writeOnPaper(mockPaper, "BRIDE: Course he did.\n");
 
 		assertTrue(pencil2.getCurrentDurability() < originalDurability2);
@@ -145,7 +145,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testSharpeningPencilMakesItShorter() throws Exception {
 		int originalPencilLength = PENCIL_LENGTH_5;
-		Pencil pencil = new Pencil(DURABILITY_500, originalPencilLength);
+		PencilInterface pencil = new Pencil(DURABILITY_500, originalPencilLength);
 
 		int expectedPencilLengthAfterSharpening = originalPencilLength - 1;
 		pencil.sharpen();
@@ -161,7 +161,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testSharpeningPencilWithNoLengthDoesNotRestoreDurability() throws Exception {
 		int originalDurability = DURABILITY_500;
-		Pencil pencil = new Pencil(originalDurability, PENCIL_LENGTH_0);
+		PencilInterface pencil = new Pencil(originalDurability, PENCIL_LENGTH_0);
 
 		pencil.writeOnPaper(new MockPaper(), "The turtle moves.");
 		int expectedFinalDurability = pencil.getCurrentDurability();

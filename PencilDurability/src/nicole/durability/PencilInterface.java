@@ -10,4 +10,6 @@ public interface PencilInterface {
 
 	void erase(PaperInterface paper, String textToErase);
 
+	void sharpen();
+
 }

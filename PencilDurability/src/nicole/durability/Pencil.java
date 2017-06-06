@@ -61,6 +61,7 @@ public class Pencil implements PencilInterface {
 				|| character == '}' || character == '\'' || character == '"');
 	}
 
+	@Override
 	public void sharpen() {
 		if (this.pencilLength > 0) {
 			this.currentDurability = this.startingDurability;
