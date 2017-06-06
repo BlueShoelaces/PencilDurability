@@ -1,5 +1,6 @@
 package nicole.durability.actions;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
@@ -31,6 +32,16 @@ public class SharpenPencilActionTest extends TestHelper {
 		sharpenPencilAction.perform();
 
 		assertTrue(mockPencil.sharpenWasCalled());
+	}
+
+	@Test
+	public void testMenuText() throws Exception {
+		SharpenPencilAction sharpenPencilAction = new SharpenPencilAction(new MockPencil());
+
+		String actualMenuText = sharpenPencilAction.getMenuTextToDisplay();
+		String expectedMenuText = "Sharpen pencil";
+
+		assertEquals(expectedMenuText, actualMenuText);
 	}
 
 }

@@ -16,7 +16,7 @@ public class SharpenPencilAction implements MenuAction {
 
 	@Override
 	public String getMenuTextToDisplay() {
-		return null;
+		return "Sharpen pencil";
 	}
 
 	@Override
