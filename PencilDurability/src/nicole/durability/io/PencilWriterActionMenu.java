@@ -27,6 +27,10 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 		String userInputMenuChoice = InputScannerWrapperSingleton.instance().nextLine();
 
 		try {
+			if (userInputMenuChoice.equals("0")) {
+				return true;
+			}
+
 			int indexOfMenuChoice = Integer.parseInt(userInputMenuChoice) - 1;
 
 			boolean indexIsNotTooLarge = indexOfMenuChoice < this.menuActions.size();

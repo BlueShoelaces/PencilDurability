@@ -181,11 +181,25 @@ public class PencilWriterActionMenuTest extends TestHelper {
 	}
 
 	@Test
-	public void testOpenMainMenu_returnsFalse() throws Exception {
+	public void testOpenMainMenu_returnsFalseByDefault() throws Exception {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				new MockPencilWriterActionMenuDisplayHelper());
 
 		assertFalse(pencilWriterActionMenu.openMainMenuWithQuitOption());
+	}
+
+	@Test
+	public void testOpenMainMenu_returnsTrueIfQuitIsSelected() throws Exception {
+		String quitSelection = "0";
+		this.mockInputScanner.setTextReturnedFromNextLine(quitSelection);
+		boolean expectedShouldQuitValue = true;
+
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
+
+		boolean actualShouldQuitValue = pencilWriterActionMenu.openMainMenuWithQuitOption();
+
+		assertEquals(expectedShouldQuitValue, actualShouldQuitValue);
 	}
 
 	@Test
