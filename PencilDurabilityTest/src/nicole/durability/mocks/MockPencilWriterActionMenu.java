@@ -9,6 +9,7 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 
 	private int numberOfTimesOpenMainMenuWasCalled = 0;
 	private boolean shouldQuit;
+	private int numberOfTimesToCallOpenMainMenuBeforeQuitting = 10;
 
 	@Override
 	public List<MenuAction> getMenuActions() {
@@ -17,7 +18,10 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 
 	@Override
 	public boolean openMainMenuWithQuitOption() {
-		this.numberOfTimesOpenMainMenuWasCalled++;
+		if (this.numberOfTimesOpenMainMenuWasCalled++ >= this.numberOfTimesToCallOpenMainMenuBeforeQuitting) {
+			this.shouldQuit = true;
+		}
+
 		return this.shouldQuit;
 	}
 
@@ -31,5 +35,10 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 
 	public void setShouldQuit(boolean shouldQuit) {
 		this.shouldQuit = shouldQuit;
+	}
+
+	public void setNumberOfTimesToCallOpenMainMenuBeforeQuitting(
+			int numberOfTimesToCallOpenMainMenuBeforeQuitting) {
+		this.numberOfTimesToCallOpenMainMenuBeforeQuitting = numberOfTimesToCallOpenMainMenuBeforeQuitting;
 	}
 }

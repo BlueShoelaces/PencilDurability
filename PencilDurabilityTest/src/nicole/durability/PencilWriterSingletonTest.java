@@ -1,7 +1,7 @@
 package nicole.durability;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import java.io.*;
 
@@ -44,7 +44,7 @@ public class PencilWriterSingletonTest extends TestHelper {
 	}
 
 	@Test
-	public void testRunLaunchesMainMenuContinually() throws Exception {
+	public void testRunLaunchesMainMenuContinuallyUntilMenuReturnsTrue() throws Exception {
 		ThreadClassForTestingRun threadClassForTestingRun = new ThreadClassForTestingRun();
 
 		long timeout = 1000;
@@ -58,18 +58,24 @@ public class PencilWriterSingletonTest extends TestHelper {
 
 		threadClassForTestingRun.interrupt();
 
-		int timesOpenMainMenuWasCalled = threadClassForTestingRun.timesOpenMainMenuWasCalled();
+		int actualTimesOpenMainMenuWasCalled = threadClassForTestingRun
+				.timesOpenMainMenuWasCalled();
 
-		boolean mainMenuLoopedAtLeast100Times = timesOpenMainMenuWasCalled > 100;
-		assertTrue("Main Menu was only opened " + timesOpenMainMenuWasCalled + " time(s).",
-				mainMenuLoopedAtLeast100Times);
+		int expectedTotalTimesOpenMainMenuWasCalled = threadClassForTestingRun
+				.expectedTimesMainMenuWasCalledBeforeQuitting() + 1;
+		assertEquals(expectedTotalTimesOpenMainMenuWasCalled, actualTimesOpenMainMenuWasCalled);
 	}
 
 	private class ThreadClassForTestingRun extends Thread {
 		private MockPencilWriterActionMenu mockMenu;
+		private int expectedTimesMainMenuWasCalledBeforeQuitting;
 
 		public ThreadClassForTestingRun() {
 			this.mockMenu = new MockPencilWriterActionMenu();
+			this.mockMenu.setShouldQuit(false);
+			this.expectedTimesMainMenuWasCalledBeforeQuitting = 100;
+			this.mockMenu.setNumberOfTimesToCallOpenMainMenuBeforeQuitting(
+					this.expectedTimesMainMenuWasCalledBeforeQuitting);
 		}
 
 		@Override
@@ -79,6 +85,10 @@ public class PencilWriterSingletonTest extends TestHelper {
 
 		public int timesOpenMainMenuWasCalled() {
 			return this.mockMenu.getNumberOfTimesOpenMainMenuWasCalled();
+		}
+
+		public int expectedTimesMainMenuWasCalledBeforeQuitting() {
+			return this.expectedTimesMainMenuWasCalledBeforeQuitting;
 		}
 	}
 }
