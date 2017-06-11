@@ -20,7 +20,7 @@ public class PencilWriterSingleton implements PencilWriterSingletonInterface {
 	@Override
 	public void run(PencilWriterActionMenuInterface pencilWriterActionMenu) {
 		while (true) {
-			pencilWriterActionMenu.openMainMenu();
+			pencilWriterActionMenu.openMainMenuWithQuitOption();
 		}
 	}
 

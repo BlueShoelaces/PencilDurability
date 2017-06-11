@@ -140,7 +140,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		expectedPencilActions.add(new MockMenuAction());
 		expectedPencilActions.add(new MockMenuAction());
 
-		pencilWriterActionMenu.openMainMenu();
+		pencilWriterActionMenu.openMainMenuWithQuitOption();
 
 		assertTrue(mockDisplayHelper.displayPencilStatsWasCalled());
 
@@ -168,14 +168,24 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockMenuAction theOnlyPencilAction = new MockMenuAction();
 		expectedPencilActions.add(theOnlyPencilAction);
 
+		boolean actualShouldQuitValue = true;
 		this.mockInputScanner.setTextReturnedFromNextLine("I am not a number!");
 		try {
-			pencilWriterActionMenu.openMainMenu();
+			actualShouldQuitValue = pencilWriterActionMenu.openMainMenuWithQuitOption();
 		} catch (NumberFormatException exception) {
 			assertFail("Did you handle the NumberFormatException?");
 		}
 
 		assertFalse(theOnlyPencilAction.performWasCalled());
+		assertFalse(actualShouldQuitValue);
+	}
+
+	@Test
+	public void testOpenMainMenu_returnsFalse() throws Exception {
+		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
+				new MockPencilWriterActionMenuDisplayHelper());
+
+		assertFalse(pencilWriterActionMenu.openMainMenuWithQuitOption());
 	}
 
 	@Test
@@ -191,7 +201,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		String numberThatIsTooLarge = "2";
 		this.mockInputScanner.setTextReturnedFromNextLine(numberThatIsTooLarge);
 		try {
-			pencilWriterActionMenu.openMainMenu();
+			pencilWriterActionMenu.openMainMenuWithQuitOption();
 		} catch (IndexOutOfBoundsException exception) {
 			assertFail("Did you handle the IndexOutOfBoundsException?");
 		}
@@ -212,7 +222,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		String numberThatIsTooSmall = "0";
 		this.mockInputScanner.setTextReturnedFromNextLine(numberThatIsTooSmall);
 		try {
-			pencilWriterActionMenu.openMainMenu();
+			pencilWriterActionMenu.openMainMenuWithQuitOption();
 		} catch (IndexOutOfBoundsException exception) {
 			assertFail("Did you handle the IndexOutOfBoundsException?");
 		}
@@ -229,27 +239,20 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockMenuAction mockAction1 = new MockMenuAction();
 		MockMenuAction mockAction2 = new MockMenuAction();
 		MockMenuAction mockAction3 = new MockMenuAction();
-		List<MenuAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		List<MenuAction> expectedMenuActions = pencilWriterActionMenu.getMenuActions();
 
-		expectedPencilActions.clear();
-		expectedPencilActions.add(mockAction1);
-		expectedPencilActions.add(mockAction2);
-		expectedPencilActions.add(mockAction3);
+		expectedMenuActions.clear();
+		expectedMenuActions.add(mockAction1);
+		expectedMenuActions.add(mockAction2);
+		expectedMenuActions.add(mockAction3);
 
-		assertFalse(this.mockInputScanner.nextLineWasCalled());
-
-		this.mockInputScanner.setTextReturnedFromNextLine("1");
-		pencilWriterActionMenu.openMainMenu();
-
-		assertTrue(this.mockInputScanner.nextLineWasCalled());
-		assertTrue(mockAction1.performWasCalled());
-
-		assertFalse(mockAction2.performWasCalled());
-		assertFalse(mockAction3.performWasCalled());
+		int userSelection = 1;
+		checkPerformWasCalledOnlyOnActionIndicatedByUser(pencilWriterActionMenu,
+				expectedMenuActions, userSelection);
 	}
 
 	@Test
-	public void testOpenMainMenu_performsPencilActionBasedOnUserChoice_secondAction()
+	public void testOpenMainMenu_performsPencilActionBasedOnUserChoice_actionInTheMiddle()
 			throws Exception {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				new MockPencilWriterActionMenuDisplayHelper());
@@ -257,27 +260,24 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockMenuAction mockAction1 = new MockMenuAction();
 		MockMenuAction mockAction2 = new MockMenuAction();
 		MockMenuAction mockAction3 = new MockMenuAction();
-		List<MenuAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		MockMenuAction mockAction4 = new MockMenuAction();
+		MockMenuAction mockAction5 = new MockMenuAction();
+		List<MenuAction> expectedMenuActions = pencilWriterActionMenu.getMenuActions();
 
-		expectedPencilActions.clear();
-		expectedPencilActions.add(mockAction1);
-		expectedPencilActions.add(mockAction2);
-		expectedPencilActions.add(mockAction3);
+		expectedMenuActions.clear();
+		expectedMenuActions.add(mockAction1);
+		expectedMenuActions.add(mockAction2);
+		expectedMenuActions.add(mockAction3);
+		expectedMenuActions.add(mockAction4);
+		expectedMenuActions.add(mockAction5);
 
-		assertFalse(this.mockInputScanner.nextLineWasCalled());
-
-		this.mockInputScanner.setTextReturnedFromNextLine("2");
-		pencilWriterActionMenu.openMainMenu();
-
-		assertTrue(this.mockInputScanner.nextLineWasCalled());
-		assertTrue(mockAction2.performWasCalled());
-
-		assertFalse(mockAction1.performWasCalled());
-		assertFalse(mockAction3.performWasCalled());
+		int userSelection = 3;
+		checkPerformWasCalledOnlyOnActionIndicatedByUser(pencilWriterActionMenu,
+				expectedMenuActions, userSelection);
 	}
 
 	@Test
-	public void testOpenMainMenu_performsPencilActionBasedOnUserChoice_thirdAction()
+	public void testOpenMainMenu_performsPencilActionBasedOnUserChoice_lastAction()
 			throws Exception {
 		PencilWriterActionMenu pencilWriterActionMenu = new PencilWriterActionMenu(
 				new MockPencilWriterActionMenuDisplayHelper());
@@ -285,22 +285,44 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		MockMenuAction mockAction1 = new MockMenuAction();
 		MockMenuAction mockAction2 = new MockMenuAction();
 		MockMenuAction mockAction3 = new MockMenuAction();
-		List<MenuAction> expectedPencilActions = pencilWriterActionMenu.getMenuActions();
+		MockMenuAction mockAction4 = new MockMenuAction();
+		List<MenuAction> expectedMenuActions = pencilWriterActionMenu.getMenuActions();
 
-		expectedPencilActions.clear();
-		expectedPencilActions.add(mockAction1);
-		expectedPencilActions.add(mockAction2);
-		expectedPencilActions.add(mockAction3);
+		expectedMenuActions.clear();
+		expectedMenuActions.add(mockAction1);
+		expectedMenuActions.add(mockAction2);
+		expectedMenuActions.add(mockAction3);
+		expectedMenuActions.add(mockAction4);
+
+		int userSelection = 4;
+		checkPerformWasCalledOnlyOnActionIndicatedByUser(pencilWriterActionMenu,
+				expectedMenuActions, userSelection);
+	}
+
+	private void checkPerformWasCalledOnlyOnActionIndicatedByUser(
+			PencilWriterActionMenu pencilWriterActionMenu, List<MenuAction> expectedMenuActions,
+			int userSelection) {
 
 		assertFalse(this.mockInputScanner.nextLineWasCalled());
 
-		this.mockInputScanner.setTextReturnedFromNextLine("3");
-		pencilWriterActionMenu.openMainMenu();
+		this.mockInputScanner.setTextReturnedFromNextLine("" + userSelection + "");
+		pencilWriterActionMenu.openMainMenuWithQuitOption();
 
 		assertTrue(this.mockInputScanner.nextLineWasCalled());
-		assertTrue(mockAction3.performWasCalled());
 
-		assertFalse(mockAction1.performWasCalled());
-		assertFalse(mockAction2.performWasCalled());
+		int indexOfMenuActionToCheck = userSelection - 1;
+		MockMenuAction menuActionToCheck = (MockMenuAction) expectedMenuActions
+				.get(indexOfMenuActionToCheck);
+		assertTrue(menuActionToCheck.performWasCalled());
+
+		for (int indexOfMenuAction = 0; indexOfMenuAction < expectedMenuActions
+				.size(); indexOfMenuAction++) {
+			MockMenuAction menuActionThatShouldNotHaveBeenCalled = (MockMenuAction) expectedMenuActions
+					.get(indexOfMenuAction);
+			if (indexOfMenuAction != indexOfMenuActionToCheck) {
+				assertFalse(menuActionThatShouldNotHaveBeenCalled.performWasCalled());
+			}
+		}
 	}
+
 }

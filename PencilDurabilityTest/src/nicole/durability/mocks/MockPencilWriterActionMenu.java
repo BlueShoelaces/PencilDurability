@@ -8,6 +8,7 @@ import nicole.durability.io.*;
 public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterface {
 
 	private int numberOfTimesOpenMainMenuWasCalled = 0;
+	private boolean shouldQuit;
 
 	@Override
 	public List<MenuAction> getMenuActions() {
@@ -15,12 +16,20 @@ public class MockPencilWriterActionMenu implements PencilWriterActionMenuInterfa
 	}
 
 	@Override
-	public void openMainMenu() {
+	public boolean openMainMenuWithQuitOption() {
 		this.numberOfTimesOpenMainMenuWasCalled++;
+		return this.shouldQuit;
 	}
 
 	public int getNumberOfTimesOpenMainMenuWasCalled() {
 		return this.numberOfTimesOpenMainMenuWasCalled;
 	}
 
+	public boolean shouldQuit() {
+		return this.shouldQuit;
+	}
+
+	public void setShouldQuit(boolean shouldQuit) {
+		this.shouldQuit = shouldQuit;
+	}
 }

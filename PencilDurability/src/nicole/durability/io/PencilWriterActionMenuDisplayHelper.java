@@ -15,7 +15,7 @@ public class PencilWriterActionMenuDisplayHelper implements DisplayHelperInterfa
 			textToDisplay += " " + menuNumber + "  " + pencilAction.getMenuTextToDisplay() + "\n";
 			menuNumber++;
 		}
-		textToDisplay += "Select a number and hit [ENTER]\n";
+		textToDisplay += "Select a number (or 0 to quit) and hit [ENTER]\n";
 		System.out.print(textToDisplay);
 	}
 

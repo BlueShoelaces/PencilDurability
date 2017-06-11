@@ -8,6 +8,6 @@ public interface PencilWriterActionMenuInterface {
 
 	List<MenuAction> getMenuActions();
 
-	void openMainMenu();
+	boolean openMainMenuWithQuitOption();
 
 }

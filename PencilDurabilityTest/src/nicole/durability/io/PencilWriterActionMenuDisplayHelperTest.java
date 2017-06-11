@@ -57,7 +57,7 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 		String expectedFirstMenuItemText = " 1  " + expectedFirstActionText + "\n";
 		String expectedSecondMenuItemText = " 2  " + expectedSecondActionText + "\n";
 		String expectedThirdMenuItemText = " 3  " + expectedThirdActionText + "\n";
-		String userPrompt = "Select a number and hit [ENTER]\n";
+		String userPrompt = "Select a number (or 0 to quit) and hit [ENTER]\n";
 		String expectedTextToDisplay = mainMenuTitle + expectedFirstMenuItemText
 				+ expectedSecondMenuItemText + expectedThirdMenuItemText + userPrompt;
 
