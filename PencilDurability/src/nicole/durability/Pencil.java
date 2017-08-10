@@ -20,6 +20,20 @@ public class Pencil implements PencilInterface {
 	@Override
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
 
+		String textToWriteConsideringPencilSharpness = determineTextToWriteConsideringPencilSharpness(
+				textToWrite);
+
+		paper.write(textToWriteConsideringPencilSharpness);
+	}
+
+	@Override
+	public void writeOnPaperInWhitespaceGap(PaperInterface paper, String textToWrite) {
+		String textToWriteConsideringPencilSharpness = determineTextToWriteConsideringPencilSharpness(
+				textToWrite);
+		paper.writeInWhitespaceGap(textToWriteConsideringPencilSharpness);
+	}
+
+	private String determineTextToWriteConsideringPencilSharpness(String textToWrite) {
 		int numberOfCharactersInText = textToWrite.length();
 		char[] charactersToWriteToPaper = new char[numberOfCharactersInText];
 
@@ -39,8 +53,7 @@ public class Pencil implements PencilInterface {
 		}
 
 		String textToWriteConsideringPencilSharpness = new String(charactersToWriteToPaper);
-
-		paper.write(textToWriteConsideringPencilSharpness);
+		return textToWriteConsideringPencilSharpness;
 	}
 
 	@Override

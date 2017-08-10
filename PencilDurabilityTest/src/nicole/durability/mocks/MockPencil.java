@@ -6,6 +6,8 @@ public class MockPencil implements PencilInterface {
 
 	private String textWrittenToPaper;
 	private PaperInterface paperWrittenTo;
+	private String textWrittenToPaperInWhitespaceGap;
+	private PaperInterface paperWrittenToInWhitespaceGap;
 	private int currentDurability = 50;
 	private int currentLength = 1;
 	private int eraserDurability = 25;
@@ -17,6 +19,12 @@ public class MockPencil implements PencilInterface {
 	public void writeOnPaper(PaperInterface paper, String textToWrite) {
 		this.textWrittenToPaper = textToWrite;
 		this.paperWrittenTo = paper;
+	}
+
+	@Override
+	public void writeOnPaperInWhitespaceGap(PaperInterface paper, String textToWrite) {
+		this.textWrittenToPaperInWhitespaceGap = textToWrite;
+		this.paperWrittenToInWhitespaceGap = paper;
 	}
 
 	@Override
@@ -51,6 +59,14 @@ public class MockPencil implements PencilInterface {
 
 	public String getTextWrittenToPaper() {
 		return this.textWrittenToPaper;
+	}
+
+	public PaperInterface getPaperWrittenToInWhitespaceGap() {
+		return this.paperWrittenToInWhitespaceGap;
+	}
+
+	public String getTextWrittenToPaperInWhitespaceGap() {
+		return this.textWrittenToPaperInWhitespaceGap;
 	}
 
 	public void setCurrentDurability(int currentDurability) {

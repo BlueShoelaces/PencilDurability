@@ -4,9 +4,10 @@ import nicole.durability.*;
 
 public class MockPaper implements PaperInterface {
 
+	private String textPassedToWrite;
+	private String textPassedToWriteInWhitespaceGap;
 	private boolean showPaperWasCalled = false;
 	private boolean replaceWithWhitespaceWasCalled = false;
-	private String textPassedToWrite;
 	private String textPassedToReplaceWithWhitespace;
 	private int eraserDurabilityPassedToReplaceWithWhitespace;
 
@@ -21,6 +22,11 @@ public class MockPaper implements PaperInterface {
 	}
 
 	@Override
+	public void writeInWhitespaceGap(String stringToWriteToPaper) {
+		this.textPassedToWriteInWhitespaceGap = stringToWriteToPaper;
+	}
+
+	@Override
 	public void replaceWithWhitespace(String textToErase, int eraserDurability) {
 		this.textPassedToReplaceWithWhitespace = textToErase;
 		this.eraserDurabilityPassedToReplaceWithWhitespace = eraserDurability;
@@ -29,6 +35,10 @@ public class MockPaper implements PaperInterface {
 
 	public String getTextPassedToWrite() {
 		return this.textPassedToWrite;
+	}
+
+	public String getTextPassedToWriteInWhitespaceGap() {
+		return this.textPassedToWriteInWhitespaceGap;
 	}
 
 	public boolean replaceWithWhitespaceWasCalled() {

@@ -4,6 +4,8 @@ public interface PencilInterface {
 
 	void writeOnPaper(PaperInterface paper, String textToWrite);
 
+	void writeOnPaperInWhitespaceGap(PaperInterface paper, String textToWrite);
+
 	int getCurrentPencilDurability();
 
 	int getPencilLength();

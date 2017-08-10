@@ -10,6 +10,11 @@ public class Paper implements PaperInterface {
 	}
 
 	@Override
+	public void writeInWhitespaceGap(String stringToWriteToPaper) {
+
+	}
+
+	@Override
 	public void showPaper() {
 		System.out.print("\n" + this.textOnPaper + "\n");
 	}
