@@ -60,6 +60,32 @@ public class PaperTest extends TestHelper {
 	}
 
 	@Test
+	public void testWriteInWhitespaceGap_WritesCollisionCharacterWhenOverwritingNonWhitespaceCharacter()
+			throws Exception {
+		PaperInterface paper = new Paper();
+		paper.write("Keep your    close");
+
+		paper.writeInWhitespaceGap("friends");
+
+		String expectedTextOnPaperAfterWritingInWhitespaceGap = "Keep your fri@@@@e\n";
+
+		assertEquals(expectedTextOnPaperAfterWritingInWhitespaceGap, paper.getTextOnPaper());
+	}
+
+	@Test
+	public void testWriteInWhitespaceGap_DoesNotWriteCollisionCharacterWhenOverwritingNonWhitespaceCharacter_WithWhitespaceCharacter()
+			throws Exception {
+		PaperInterface paper = new Paper();
+		paper.write("Here is a word:   supercalifragilisticexpialidocious!");
+
+		paper.writeInWhitespaceGap("here are four words");
+
+		String expectedTextOnPaperAfterWritingInWhitespaceGap = "Here is a word: he@@p@@@a@@@@a@@@@@ticexpialidocious!\n";
+
+		assertEquals(expectedTextOnPaperAfterWritingInWhitespaceGap, paper.getTextOnPaper());
+	}
+
+	@Test
 	public void testShowPaper_nothingWrittenYet() throws Exception {
 		PaperInterface paper = new Paper();
 		String expectedTextWritten = "";

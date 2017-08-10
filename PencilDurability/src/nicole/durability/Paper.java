@@ -40,8 +40,20 @@ public class Paper implements PaperInterface {
 
 		int indexOfLetterToWrite = 0;
 		for (int indexOfLetterToOverwrite = startOfOverwrittenChunk; indexOfLetterToOverwrite < endOfOverwrittenChunk; indexOfLetterToOverwrite++) {
-			individualLettersOnPaper[indexOfLetterToOverwrite] = textToWrite
-					.charAt(indexOfLetterToWrite++);
+			char characterOnPaper = individualLettersOnPaper[indexOfLetterToOverwrite];
+			boolean characterOnPaperIsWhitespace = isWhitespace(characterOnPaper);
+			boolean characterToWriteIsWhitespace = isWhitespace(
+					textToWrite.charAt(indexOfLetterToWrite));
+
+			if (characterOnPaperIsWhitespace) {
+				individualLettersOnPaper[indexOfLetterToOverwrite] = textToWrite
+						.charAt(indexOfLetterToWrite++);
+			} else if (characterToWriteIsWhitespace) {
+				indexOfLetterToWrite++;
+			} else {
+				individualLettersOnPaper[indexOfLetterToOverwrite] = '@';
+				indexOfLetterToWrite++;
+			}
 		}
 
 		String newTextOnPaper = new String(individualLettersOnPaper);
@@ -57,8 +69,7 @@ public class Paper implements PaperInterface {
 				- 1; indexOfLetterToErase >= startOfEraseChunk
 						&& eraserDurability > 0; indexOfLetterToErase--) {
 			char characterOnPaper = individualLettersOnPaper[indexOfLetterToErase];
-			boolean characterOnPaperIsNotWhitespace = characterOnPaper != ' '
-					&& characterOnPaper != '\n' && characterOnPaper != '\t';
+			boolean characterOnPaperIsNotWhitespace = !isWhitespace(characterOnPaper);
 
 			if (characterOnPaperIsNotWhitespace) {
 				eraserDurability -= 1;
@@ -68,6 +79,10 @@ public class Paper implements PaperInterface {
 		}
 		String newTextOnPaper = new String(individualLettersOnPaper);
 		this.textOnPaper = newTextOnPaper;
+	}
+
+	private boolean isWhitespace(char character) {
+		return character == ' ' || character == '\n' || character == '\t';
 	}
 
 	@Override
