@@ -63,9 +63,10 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 		this.menuActions = new ArrayList<MenuAction>();
 		Paper paper = new Paper();
 
-		this.menuActions.add(new WriteAction(this.pencil, paper));
 		this.menuActions.add(new ShowPaperAction(paper));
+		this.menuActions.add(new WriteAction(this.pencil, paper));
 		this.menuActions.add(new EraseAction(this.pencil, paper));
+		this.menuActions.add(new EditAction(this.pencil, paper));
 		this.menuActions.add(new SharpenPencilAction(this.pencil));
 	}
 

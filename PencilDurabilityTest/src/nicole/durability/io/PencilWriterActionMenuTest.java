@@ -14,7 +14,7 @@ import nicole.test.*;
 
 public class PencilWriterActionMenuTest extends TestHelper {
 
-	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 4;
+	private static final int EXPECTED_NUMBER_OF_MENU_ITEMS = 5;
 
 	private Field inputScannerWrapperSingletonPrivateField;
 	private MockInputScannerWrapperSingleton mockInputScanner;
@@ -55,28 +55,41 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		List<MenuAction> actualMenuActions = pencilWriterActionMenu.getMenuActions();
 		assertEquals(EXPECTED_NUMBER_OF_MENU_ITEMS, actualMenuActions.size());
 
-		int expectedWriteIndex = 0;
-		WriteAction actualWritePencilAction = checkWritePencilAction(actualMenuActions,
-				expectedWriteIndex);
-		assertSame(expectedPencilPassedToActions, actualWritePencilAction.getPencil());
-		PaperInterface expectedPaperPassedToActions = assertIsOfTypeAndGet(Paper.class,
-				actualWritePencilAction.getPaper());
-
-		int expectedShowPaperIndex = 1;
+		int expectedShowPaperIndex = 0;
 		ShowPaperAction actualShowPaperAction = checkShowPaperAction(actualMenuActions,
 				expectedShowPaperIndex);
-		assertSame(expectedPaperPassedToActions, actualShowPaperAction.getPaper());
+		PaperInterface expectedPaperPassedToActions = assertIsOfTypeAndGet(Paper.class,
+				actualShowPaperAction.getPaper());
+
+		int expectedWriteIndex = 1;
+		WriteAction actualWritePencilAction = checkWriteAction(actualMenuActions,
+				expectedWriteIndex);
+		assertSame(expectedPencilPassedToActions, actualWritePencilAction.getPencil());
+		assertSame(expectedPaperPassedToActions, actualWritePencilAction.getPaper());
 
 		int expectedEraseIndex = 2;
 		EraseAction actualEraseAction = checkEraseAction(actualMenuActions, expectedEraseIndex);
 		assertSame(expectedPencilPassedToActions, actualEraseAction.getPencil());
 		assertSame(expectedPaperPassedToActions, actualEraseAction.getPaper());
 
-		int expectedSharpenIndex = 3;
+		int expectedEditIndex = 3;
+		EditAction actualEditAction = checkEditAction(actualMenuActions, expectedEditIndex);
+		assertSame(expectedPencilPassedToActions, actualEditAction.getPencil());
+		assertSame(expectedPaperPassedToActions, actualEditAction.getPaper());
+
+		int expectedSharpenIndex = 4;
 		SharpenPencilAction sharpenPencilAction = checkSharpenPencilAction(actualMenuActions,
 				expectedSharpenIndex);
 		assertSame(expectedPencilPassedToActions, sharpenPencilAction.getPencil());
 
+	}
+
+	private EditAction checkEditAction(List<MenuAction> actualMenuActions, int expectedEditIndex) {
+
+		MenuAction expectedEditAction = actualMenuActions.get(expectedEditIndex);
+		EditAction actualEditAction = assertIsOfTypeAndGet(EditAction.class, expectedEditAction);
+
+		return actualEditAction;
 	}
 
 	private SharpenPencilAction checkSharpenPencilAction(List<MenuAction> actualMenuActions,
@@ -87,7 +100,7 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		return actualSharpenPencilAction;
 	}
 
-	private WriteAction checkWritePencilAction(List<MenuAction> actualMenuActions,
+	private WriteAction checkWriteAction(List<MenuAction> actualMenuActions,
 			int expectedWritePencilIndex) {
 		MenuAction expectedWritePencilAction = actualMenuActions.get(expectedWritePencilIndex);
 		WriteAction actualWritePencilAction = assertIsOfTypeAndGet(WriteAction.class,
