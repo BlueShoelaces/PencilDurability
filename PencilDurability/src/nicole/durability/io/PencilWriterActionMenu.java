@@ -14,7 +14,9 @@ public class PencilWriterActionMenu implements PencilWriterActionMenuInterface {
 	public PencilWriterActionMenu(DisplayHelperInterface displayHelper) {
 		int pencilDurability = 500;
 		int pencilLength = 4;
-		this.pencil = new Pencil(pencilDurability, pencilLength);
+		int eraserDurability = 10;
+
+		this.pencil = new Pencil(pencilDurability, pencilLength, eraserDurability);
 		this.displayHelper = displayHelper;
 
 		createActionsForMainMenu();

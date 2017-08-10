@@ -96,13 +96,17 @@ public class PencilWriterActionMenuTest extends TestHelper {
 		PencilInterface actualPencil = assertIsOfTypeAndGet(Pencil.class,
 				actualWritePencilAction.getPencil());
 
-		int actualDurability = actualPencil.getCurrentDurability();
+		int actualDurability = actualPencil.getCurrentPencilDurability();
 		int expectedDurability = 500;
 		assertEquals(expectedDurability, actualDurability);
 
 		int actualPencilLength = actualPencil.getPencilLength();
 		int expectedPencilLength = 4;
 		assertEquals(expectedPencilLength, actualPencilLength);
+
+		int actualEraserDurability = actualPencil.getEraserDurability();
+		int expectedEraserDurability = 10;
+		assertEquals(expectedEraserDurability, actualEraserDurability);
 
 		assertIsOfTypeAndGet(Paper.class, actualWritePencilAction.getPaper());
 

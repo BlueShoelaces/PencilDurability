@@ -35,8 +35,14 @@ public class MockPencil implements PencilInterface {
 	}
 
 	@Override
-	public int getCurrentDurability() {
+	public int getCurrentPencilDurability() {
 		return this.currentDurability;
+	}
+
+	@Override
+	public int getEraserDurability() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	public PaperInterface getPaperWrittenTo() {

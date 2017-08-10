@@ -6,13 +6,15 @@ public class Pencil implements PencilInterface {
 	private static final int LOWERCASE_DEGRADATION_VALUE = 1;
 	private static final int PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE = 1;
 
-	private int currentDurability;
-	private int startingDurability;
+	private int currentPencilDurability;
+	private int startingPencilDurability;
 	private int pencilLength;
+	private int eraserDurability;
 
-	public Pencil(int durability, int pencilLength) {
-		this.startingDurability = this.currentDurability = durability;
+	public Pencil(int pencilDurability, int pencilLength, int eraserDurability) {
+		this.startingPencilDurability = this.currentPencilDurability = pencilDurability;
 		this.pencilLength = pencilLength;
+		this.eraserDurability = eraserDurability;
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class Pencil implements PencilInterface {
 		for (int characterIndex = 0; characterIndex < numberOfCharactersInText; characterIndex++) {
 
 			char characterToWrite = textToWrite.charAt(characterIndex);
-			if (this.currentDurability > 0) {
+			if (this.currentPencilDurability > 0) {
 				charactersToWriteToPaper[characterIndex] = characterToWrite;
 				degradePencil(characterToWrite);
 			} else {
@@ -37,14 +39,42 @@ public class Pencil implements PencilInterface {
 		paper.write(textToWriteConsideringPencilSharpness);
 	}
 
+	@Override
+	public int getCurrentPencilDurability() {
+		return this.currentPencilDurability;
+	}
+
+	@Override
+	public int getPencilLength() {
+		return this.pencilLength;
+	}
+
+	@Override
+	public void erase(PaperInterface paper, String textToErase) {
+		paper.replaceWithWhitespace(textToErase);
+	}
+
+	@Override
+	public void sharpen() {
+		if (this.pencilLength > 0) {
+			this.currentPencilDurability = this.startingPencilDurability;
+			this.pencilLength--;
+		}
+	}
+
+	@Override
+	public int getEraserDurability() {
+		return this.eraserDurability;
+	}
+
 	private void degradePencil(char characterToWrite) {
 		if (Character.isUpperCase(characterToWrite)) {
-			this.currentDurability -= UPPERCASE_DEGRADATION_VALUE;
+			this.currentPencilDurability -= UPPERCASE_DEGRADATION_VALUE;
 		} else if (Character.isLowerCase(characterToWrite)) {
-			this.currentDurability -= LOWERCASE_DEGRADATION_VALUE;
+			this.currentPencilDurability -= LOWERCASE_DEGRADATION_VALUE;
 		} else if (characterIsNumber(characterToWrite)
 				|| characterIsPunctuation(characterToWrite)) {
-			this.currentDurability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
+			this.currentPencilDurability -= PUNCTUATION_AND_NUMBER_DEGRADATION_VALUE;
 		}
 	}
 
@@ -59,27 +89,5 @@ public class Pencil implements PencilInterface {
 				|| character == ';' || character == ':' || character == '-' || character == '('
 				|| character == ')' || character == '[' || character == ']' || character == '{'
 				|| character == '}' || character == '\'' || character == '"');
-	}
-
-	@Override
-	public void sharpen() {
-		if (this.pencilLength > 0) {
-			this.currentDurability = this.startingDurability;
-			this.pencilLength--;
-		}
-	}
-
-	@Override
-	public int getCurrentDurability() {
-		return this.currentDurability;
-	}
-
-	public int getPencilLength() {
-		return this.pencilLength;
-	}
-
-	@Override
-	public void erase(PaperInterface paper, String textToErase) {
-		paper.replaceWithWhitespace(textToErase);
 	}
 }

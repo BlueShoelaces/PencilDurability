@@ -4,12 +4,14 @@ public interface PencilInterface {
 
 	void writeOnPaper(PaperInterface paper, String textToWrite);
 
-	int getCurrentDurability();
+	int getCurrentPencilDurability();
 
 	int getPencilLength();
 
 	void erase(PaperInterface paper, String textToErase);
 
 	void sharpen();
+
+	int getEraserDurability();
 
 }

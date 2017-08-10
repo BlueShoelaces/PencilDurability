@@ -12,7 +12,8 @@ public class PencilTest extends TestHelper {
 
 	private static final int PENCIL_LENGTH_0 = 0;
 	private static final int PENCIL_LENGTH_5 = 5;
-	private static final int DURABILITY_500 = 500;
+	private static final int PENCIL_DURABILITY_500 = 500;
+	private static int ERASER_DURABILITY_10 = 10;
 
 	@Test
 	public void testImplementsInterface() throws Exception {
@@ -21,15 +22,19 @@ public class PencilTest extends TestHelper {
 
 	@Test
 	public void testPencilConstructor() {
-		int expectedDurability = 1500;
+		int expectedPencilDurability = 1500;
 		int expectedPencilLength = PENCIL_LENGTH_5;
+		int expectedEraserDurability = 10;
 
-		PencilInterface pencil = new Pencil(expectedDurability, expectedPencilLength);
-		int actualDurability = pencil.getCurrentDurability();
+		PencilInterface pencil = new Pencil(expectedPencilDurability, expectedPencilLength,
+				expectedEraserDurability);
+		int actualPencilDurability = pencil.getCurrentPencilDurability();
 		int actualPencilLength = pencil.getPencilLength();
+		int actualEraserDurability = pencil.getEraserDurability();
 
-		assertEquals(expectedDurability, actualDurability);
+		assertEquals(expectedPencilDurability, actualPencilDurability);
 		assertEquals(expectedPencilLength, actualPencilLength);
+		assertEquals(expectedEraserDurability, actualEraserDurability);
 	}
 
 	@Test
@@ -37,7 +42,7 @@ public class PencilTest extends TestHelper {
 		String expectedTextWrittenToPaper = "What a long, strange trip it's been.";
 		int durability = expectedTextWrittenToPaper.length() * 2;
 
-		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5, ERASER_DURABILITY_10);
 		MockPaper mockPaper = new MockPaper();
 
 		pencil.writeOnPaper(mockPaper, expectedTextWrittenToPaper);
@@ -49,12 +54,13 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testPencilPointDegradesWithUse_lowerCaseExpendsOneGraphitePoint() throws Exception {
 		int startingDurability = 1500;
-		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		String lowerCaseLetters = "abcdefghijklmnopqrstuvwxyz";
 		pencil.writeOnPaper(new MockPaper(), lowerCaseLetters);
 
 		int expectedDurabilityAfterWriting = startingDurability - 26;
-		int actualDurabilityAfterWriting = pencil.getCurrentDurability();
+		int actualDurabilityAfterWriting = pencil.getCurrentPencilDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 	}
@@ -63,12 +69,13 @@ public class PencilTest extends TestHelper {
 	public void testPencilPointDegradesWithUse_punctuationAndNumbersExpendOneGraphitePoint()
 			throws Exception {
 		int startingDurability = 1500;
-		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		String punctuation = ".?!,;:-()[]{}'\"0123456789";
 		pencil.writeOnPaper(new MockPaper(), punctuation);
 
 		int expectedDurabilityAfterWriting = startingDurability - 25;
-		int actualDurabilityAfterWriting = pencil.getCurrentDurability();
+		int actualDurabilityAfterWriting = pencil.getCurrentPencilDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 	}
@@ -77,12 +84,13 @@ public class PencilTest extends TestHelper {
 	public void testPencilPointDegradesWithUse_upperCaseExpendsTwoGraphitePoints()
 			throws Exception {
 		int startingDurability = 1500;
-		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		String upperCaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		pencil.writeOnPaper(new MockPaper(), upperCaseLetters);
 
 		int expectedDurabilityAfterWriting = startingDurability - (2 * 26);
-		int actualDurabilityAfterWriting = pencil.getCurrentDurability();
+		int actualDurabilityAfterWriting = pencil.getCurrentPencilDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 	}
@@ -90,12 +98,13 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testPencilPointDegradesWithUse_whitespaceExpendsNoGraphite() throws Exception {
 		int startingDurability = 1500;
-		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(startingDurability, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		String whitespace = "\t   \n";
 		pencil.writeOnPaper(new MockPaper(), whitespace);
 
 		int expectedDurabilityAfterWriting = startingDurability;
-		int actualDurabilityAfterWriting = pencil.getCurrentDurability();
+		int actualDurabilityAfterWriting = pencil.getCurrentPencilDurability();
 
 		assertEquals(expectedDurabilityAfterWriting, actualDurabilityAfterWriting);
 	}
@@ -103,7 +112,7 @@ public class PencilTest extends TestHelper {
 	@Test
 	public void testDullPencilWritesOnlyBlankSpaces() throws Exception {
 		int durability = 0;
-		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5, ERASER_DURABILITY_10);
 		MockPaper mockPaper = new MockPaper();
 
 		String textPencilIsDirectedToWrite = "I should sharpen my pencil...";
@@ -120,32 +129,35 @@ public class PencilTest extends TestHelper {
 
 		PaperInterface mockPaper = new MockPaper();
 		int originalDurability1 = 500;
-		PencilInterface pencil1 = new Pencil(originalDurability1, PENCIL_LENGTH_5);
+		PencilInterface pencil1 = new Pencil(originalDurability1, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 
 		String textToWrite = "BILL: Pai Mei taught you the Five Point Palm Exploding Heart Technique?\n";
 		pencil1.writeOnPaper(mockPaper, textToWrite);
 
-		assertTrue(pencil1.getCurrentDurability() < originalDurability1);
+		assertTrue(pencil1.getCurrentPencilDurability() < originalDurability1);
 
 		pencil1.sharpen();
 
-		assertEquals(pencil1.getCurrentDurability(), originalDurability1);
+		assertEquals(pencil1.getCurrentPencilDurability(), originalDurability1);
 
 		int originalDurability2 = 50;
-		PencilInterface pencil2 = new Pencil(originalDurability2, PENCIL_LENGTH_5);
+		PencilInterface pencil2 = new Pencil(originalDurability2, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		pencil2.writeOnPaper(mockPaper, "BRIDE: Course he did.\n");
 
-		assertTrue(pencil2.getCurrentDurability() < originalDurability2);
+		assertTrue(pencil2.getCurrentPencilDurability() < originalDurability2);
 
 		pencil2.sharpen();
 
-		assertEquals(pencil2.getCurrentDurability(), originalDurability2);
+		assertEquals(pencil2.getCurrentPencilDurability(), originalDurability2);
 	}
 
 	@Test
 	public void testSharpeningPencilMakesItShorter() throws Exception {
 		int originalPencilLength = PENCIL_LENGTH_5;
-		PencilInterface pencil = new Pencil(DURABILITY_500, originalPencilLength);
+		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, originalPencilLength,
+				ERASER_DURABILITY_10);
 
 		int expectedPencilLengthAfterSharpening = originalPencilLength - 1;
 		pencil.sharpen();
@@ -160,22 +172,24 @@ public class PencilTest extends TestHelper {
 
 	@Test
 	public void testSharpeningPencilWithNoLengthDoesNotRestoreDurability() throws Exception {
-		int originalDurability = DURABILITY_500;
-		PencilInterface pencil = new Pencil(originalDurability, PENCIL_LENGTH_0);
+		int originalDurability = PENCIL_DURABILITY_500;
+		PencilInterface pencil = new Pencil(originalDurability, PENCIL_LENGTH_0,
+				ERASER_DURABILITY_10);
 
 		pencil.writeOnPaper(new MockPaper(), "The turtle moves.");
-		int expectedFinalDurability = pencil.getCurrentDurability();
+		int expectedFinalDurability = pencil.getCurrentPencilDurability();
 		assertTrue(expectedFinalDurability < originalDurability);
 
 		pencil.sharpen();
 
-		int actualFinalDurability = pencil.getCurrentDurability();
+		int actualFinalDurability = pencil.getCurrentPencilDurability();
 		assertEquals(expectedFinalDurability, actualFinalDurability);
 	}
 
 	@Test
 	public void testErase() throws Exception {
-		PencilInterface pencil = new Pencil(DURABILITY_500, PENCIL_LENGTH_5);
+		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_10);
 		MockPaper mockPaper = new MockPaper();
 
 		String expectedTextErased = "Erase me!";
