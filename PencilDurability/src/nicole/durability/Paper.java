@@ -15,19 +15,30 @@ public class Paper implements PaperInterface {
 	}
 
 	@Override
-	public void replaceWithWhitespace(String textToErase) {
+	public void replaceWithWhitespace(String textToErase, int eraserDurability) {
 		int indexOfLastOccurenceOfTextToErase = this.textOnPaper.lastIndexOf(textToErase);
 		int numberOfLettersToErase = textToErase.length();
 
 		replacePartOfTextOnPaperWithWhitespace(indexOfLastOccurenceOfTextToErase,
-				numberOfLettersToErase);
+				numberOfLettersToErase, eraserDurability);
 	}
 
-	private void replacePartOfTextOnPaperWithWhitespace(int index, int numberOfLettersToErase) {
+	private void replacePartOfTextOnPaperWithWhitespace(int startOfEraseChunk,
+			int numberOfLettersToErase, int eraserDurability) {
 		char[] individualLettersOnPaper = this.textOnPaper.toCharArray();
-		int pointToEraseTo = index + numberOfLettersToErase;
+		int endOfEraseChunk = startOfEraseChunk + numberOfLettersToErase;
 
-		for (int indexOfLetterToErase = index; indexOfLetterToErase < pointToEraseTo; indexOfLetterToErase++) {
+		for (int indexOfLetterToErase = endOfEraseChunk
+				- 1; indexOfLetterToErase >= startOfEraseChunk
+						&& eraserDurability > 0; indexOfLetterToErase--) {
+			char characterOnPaper = individualLettersOnPaper[indexOfLetterToErase];
+			boolean characterOnPaperIsNotWhitespace = characterOnPaper != ' '
+					&& characterOnPaper != '\n' && characterOnPaper != '\t';
+
+			if (characterOnPaperIsNotWhitespace) {
+				eraserDurability -= 1;
+			}
+
 			individualLettersOnPaper[indexOfLetterToErase] = ' ';
 		}
 		String newTextOnPaper = new String(individualLettersOnPaper);

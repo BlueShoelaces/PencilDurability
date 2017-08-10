@@ -188,8 +188,9 @@ public class PencilTest extends TestHelper {
 
 	@Test
 	public void testErase_ErasesSomeWordsFromThePaper() throws Exception {
+		int eraserDurability = ERASER_DURABILITY_25;
 		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5,
-				ERASER_DURABILITY_25);
+				eraserDurability);
 		MockPaper mockPaper = new MockPaper();
 
 		String expectedTextErased = "Erase me!";
@@ -197,6 +198,8 @@ public class PencilTest extends TestHelper {
 
 		assertTrue(mockPaper.replaceWithWhitespaceWasCalled());
 		assertEquals(expectedTextErased, mockPaper.getTextPassedToReplaceWithWhitespace());
+		assertEquals(eraserDurability,
+				mockPaper.getEraserDurabilityPassedToReplaceWithWhitespace());
 	}
 
 	@Test

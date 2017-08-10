@@ -77,11 +77,26 @@ public class PaperTest extends TestHelper {
 		Paper paper = new Paper();
 		String textAlreadyOnPaper = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis, je fume.";
 		paper.write(textAlreadyOnPaper);
-		String textAlreadyOnPaperWithWhitespace = textAlreadyOnPaper + "\n";
-		assertEquals(textAlreadyOnPaperWithWhitespace, paper.getTextOnPaper());
+		String textAlreadyOnPaperWithTrailingWhitespace = textAlreadyOnPaper + "\n";
+		assertEquals(textAlreadyOnPaperWithTrailingWhitespace, paper.getTextOnPaper());
 
-		paper.replaceWithWhitespace("je");
+		paper.replaceWithWhitespace("je", 10);
 		String expectedTextAfterErasing = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis,    fume.\n";
+
+		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+	}
+
+	@Test
+	public void testReplaceWithWhitespace_ErasesCharactersInReverseOrderUntilEraserDurabilityRunsOut()
+			throws Exception {
+		Paper paper = new Paper();
+		String textAlreadyOnPaper = "That's why the people of this world believe in Garnet, Amethyst, and Pearl... and Steven!";
+		paper.write(textAlreadyOnPaper);
+
+		int eraserDurability = 7;
+		paper.replaceWithWhitespace("Amethyst, and", eraserDurability);
+
+		String expectedTextAfterErasing = "That's why the people of this world believe in Garnet, Ameth         Pearl... and Steven!\n";
 
 		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
 	}
