@@ -4,7 +4,7 @@ public class EditAction implements MenuAction {
 
 	@Override
 	public String getMenuTextToDisplay() {
-		return null;
+		return "Write over previously erased text";
 	}
 
 	@Override
