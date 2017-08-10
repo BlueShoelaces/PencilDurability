@@ -2,6 +2,7 @@ package nicole.durability.actions;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.io.*;
 import java.lang.reflect.*;
@@ -74,5 +75,25 @@ public class EditActionTest extends TestHelper {
 
 		String actualOutputText = this.mockOutputStream.toString();
 		assertEquals("Enter some text to write: ", actualOutputText);
+	}
+
+	@Test
+	public void testPerform_MakesPencilWriteInputText() throws Exception {
+		MockPencil mockPencil = new MockPencil();
+		MockPaper mockPaper = new MockPaper();
+
+		String expectedTextWrittenToPaper = "Aw, jeez, Rick...";
+		this.mockScannerWrapper.setTextReturnedFromNextLine(expectedTextWrittenToPaper);
+
+		EditAction editAction = new EditAction(mockPencil, mockPaper);
+		editAction.perform();
+
+		assertTrue(this.mockScannerWrapper.nextLineWasCalled());
+
+		PaperInterface actualPaperWrittenTo = mockPencil.getPaperWrittenToInWhitespaceGap();
+		assertSame(mockPaper, actualPaperWrittenTo);
+
+		String actualTextWrittenToPaper = mockPencil.getTextWrittenToPaperInWhitespaceGap();
+		assertEquals(expectedTextWrittenToPaper, actualTextWrittenToPaper);
 	}
 }

@@ -1,6 +1,7 @@
 package nicole.durability.actions;
 
 import nicole.durability.*;
+import nicole.durability.io.*;
 
 public class EditAction implements MenuAction {
 
@@ -19,7 +20,11 @@ public class EditAction implements MenuAction {
 
 	@Override
 	public void perform() {
+		InputScannerWrapperSingletonInterface scannerWrapper = InputScannerWrapperSingleton
+				.instance();
 		System.out.print("Enter some text to write: ");
+		String textToWrite = scannerWrapper.nextLine();
+		this.pencil.writeOnPaperInWhitespaceGap(this.paper, textToWrite);
 	}
 
 	public PencilInterface getPencil() {
