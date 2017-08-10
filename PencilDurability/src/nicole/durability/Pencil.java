@@ -26,7 +26,11 @@ public class Pencil implements PencilInterface {
 		for (int characterIndex = 0; characterIndex < numberOfCharactersInText; characterIndex++) {
 
 			char characterToWrite = textToWrite.charAt(characterIndex);
-			if (this.currentPencilDurability > 0) {
+			boolean thereIsOneGraphitePointLeftAndCharacterToWriteIsNotUpperCase = this.currentPencilDurability == 1
+					&& !Character.isUpperCase(characterToWrite);
+
+			if (this.currentPencilDurability > 1
+					|| thereIsOneGraphitePointLeftAndCharacterToWriteIsNotUpperCase) {
 				charactersToWriteToPaper[characterIndex] = characterToWrite;
 				degradePencil(characterToWrite);
 			} else {
@@ -52,10 +56,17 @@ public class Pencil implements PencilInterface {
 	@Override
 	public void erase(PaperInterface paper, String textToErase) {
 		paper.replaceWithWhitespace(textToErase, this.eraserDurability);
+		degradeEraser(textToErase);
+	}
+
+	private void degradeEraser(String textToErase) {
 		int numberOfWhitespaceCharacters = textToErase.split("\\s").length - 1;
 		int amountErasedCharactersAffectEraserDegradation = textToErase.length()
 				- numberOfWhitespaceCharacters;
 		this.eraserDurability -= amountErasedCharactersAffectEraserDegradation;
+		if (this.eraserDurability < 0) {
+			this.eraserDurability = 0;
+		}
 	}
 
 	@Override

@@ -110,6 +110,20 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
+	public void testPencilPointDegradesWithUse_CapitalLetterIsNotWrittenIfOnlyOneGraphitePointRemains()
+			throws Exception {
+		Pencil pencil = new Pencil(5, PENCIL_LENGTH_5, ERASER_DURABILITY_25);
+
+		MockPaper mockPaper = new MockPaper();
+		pencil.writeOnPaper(mockPaper, "abcdE");
+
+		String actualTextWritten = mockPaper.getTextPassedToWrite();
+		String expectedTextWritten = "abcd ";
+		assertEquals(expectedTextWritten, actualTextWritten);
+		assertEquals(1, pencil.getCurrentPencilDurability());
+	}
+
+	@Test
 	public void testDullPencilWritesOnlyBlankSpaces() throws Exception {
 		int durability = 0;
 		PencilInterface pencil = new Pencil(durability, PENCIL_LENGTH_5, ERASER_DURABILITY_25);
@@ -224,6 +238,21 @@ public class PencilTest extends TestHelper {
 				- numberOfNonWhitespaceCharacters;
 
 		assertEquals(expectedFinalEraserDurability, actualFinalEraserDurability);
+	}
+
+	@Test
+	public void testErase_EraserDurabilityCannotFallBelowZero() throws Exception {
+		Pencil pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5, ERASER_DURABILITY_25);
+
+		String textThatWouldReduceEraserDurabilityToNegative = "Twas brillig, and the slithy toves did gyre and gimble in the wabe:"
+				+ "All mimsy were the borogoves, and the mome raths outgrabe.";
+
+		pencil.erase(new MockPaper(), textThatWouldReduceEraserDurabilityToNegative);
+
+		int actualResultingEraserDurability = pencil.getEraserDurability();
+		int expectedResultingEraserDurability = 0;
+
+		assertEquals(expectedResultingEraserDurability, actualResultingEraserDurability);
 	}
 
 	private int findNumberOfNonWhitespaceCharacters(String text) {
