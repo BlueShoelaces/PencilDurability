@@ -347,7 +347,8 @@ public class PencilTest extends TestHelper {
 
 	@Test
 	public void testErase_EraserDurabilityCannotFallBelowZero() throws Exception {
-		Pencil pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5, ERASER_DURABILITY_25);
+		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_25);
 
 		String textThatWouldReduceEraserDurabilityToNegative = "Twas brillig, and the slithy toves did gyre and gimble in the wabe:"
 				+ "All mimsy were the borogoves, and the mome raths outgrabe.";
@@ -358,6 +359,19 @@ public class PencilTest extends TestHelper {
 		int expectedResultingEraserDurability = 0;
 
 		assertEquals(expectedResultingEraserDurability, actualResultingEraserDurability);
+	}
+
+	@Test
+	public void testErase_EraserDoesNotDegradeIfNothingIsErased() throws Exception {
+		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5,
+				ERASER_DURABILITY_25);
+		MockPaper mockPaper = new MockPaper();
+		mockPaper.setSomethingWasErased(false);
+
+		pencil.erase(mockPaper, "Hola, señorita. ¿Cómo te llamas?");
+
+		int expectedEraserDurability = ERASER_DURABILITY_25;
+		assertEquals(expectedEraserDurability, pencil.getEraserDurability());
 	}
 
 	private int findNumberOfNonWhitespaceCharacters(String text) {

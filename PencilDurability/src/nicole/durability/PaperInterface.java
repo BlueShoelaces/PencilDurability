@@ -8,7 +8,7 @@ public interface PaperInterface {
 
 	void writeInWhitespaceGap(String stringToWriteToPaper);
 
-	void replaceWithWhitespace(String textToErase, int eraserDurability);
+	boolean replaceWithWhitespace(String textToErase, int eraserDurability);
 
 	String getTextOnPaper();
 

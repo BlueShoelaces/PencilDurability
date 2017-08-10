@@ -23,4 +23,8 @@ public class TestHelper {
 	protected void assertFail(String failureMessage) {
 		assertTrue(failureMessage, false);
 	}
+
+	protected void assertFalse(boolean condition) {
+		assertTrue(!condition);
+	}
 }

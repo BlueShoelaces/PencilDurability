@@ -68,8 +68,11 @@ public class Pencil implements PencilInterface {
 
 	@Override
 	public void erase(PaperInterface paper, String textToErase) {
-		paper.replaceWithWhitespace(textToErase, this.eraserDurability);
-		degradeEraser(textToErase);
+		boolean somethingWasErased = paper.replaceWithWhitespace(textToErase,
+				this.eraserDurability);
+		if (somethingWasErased) {
+			degradeEraser(textToErase);
+		}
 	}
 
 	private void degradeEraser(String textToErase) {

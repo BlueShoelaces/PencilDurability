@@ -1,6 +1,7 @@
 package nicole.durability;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.*;
 
@@ -115,31 +116,46 @@ public class PaperTest extends TestHelper {
 
 	@Test
 	public void testReplaceWithWhitespace() throws Exception {
-		Paper paper = new Paper();
+		PaperInterface paper = new Paper();
 		String textAlreadyOnPaper = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis, je fume.";
 		paper.write(textAlreadyOnPaper);
 		String textAlreadyOnPaperWithTrailingWhitespace = textAlreadyOnPaper + "\n";
 		assertEquals(textAlreadyOnPaperWithTrailingWhitespace, paper.getTextOnPaper());
 
-		paper.replaceWithWhitespace("je", 10);
+		boolean somethingWasErased = paper.replaceWithWhitespace("je", 10);
 		String expectedTextAfterErasing = "Je ne veux pas travailler... je ne veux pas dejeuner... je veux seulement oublier... et puis,    fume.\n";
 
 		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+		assertTrue(somethingWasErased);
 	}
 
 	@Test
 	public void testReplaceWithWhitespace_ErasesCharactersInReverseOrderUntilEraserDurabilityRunsOut()
 			throws Exception {
-		Paper paper = new Paper();
+		PaperInterface paper = new Paper();
 		String textAlreadyOnPaper = "That's why the people of this world believe in Garnet, Amethyst, and Pearl... and Steven!";
 		paper.write(textAlreadyOnPaper);
 
 		int eraserDurability = 7;
-		paper.replaceWithWhitespace("Amethyst, and", eraserDurability);
+		boolean somethingWasErased = paper.replaceWithWhitespace("Amethyst, and", eraserDurability);
 
 		String expectedTextAfterErasing = "That's why the people of this world believe in Garnet, Ameth         Pearl... and Steven!\n";
 
 		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+		assertTrue(somethingWasErased);
+	}
+
+	@Test
+	public void testReplaceWithWhitespace_ReturnsFalseIfTextDoesNotExistOnPaper() throws Exception {
+		PaperInterface paper = new Paper();
+		String textAlreadyOnPaper = "Shake it, shake it, Sugaree";
+		paper.write(textAlreadyOnPaper);
+
+		boolean somethingWasErased = paper.replaceWithWhitespace("Rosalie McFall", 25);
+
+		String expectedTextAfterErasing = "Shake it, shake it, Sugaree\n";
+		assertEquals(expectedTextAfterErasing, paper.getTextOnPaper());
+		assertFalse(somethingWasErased);
 	}
 
 	private void checkShowPaperAppendsNewLinesToStartAndEnd(String expectedStringWrittenToPaper) {

@@ -24,12 +24,19 @@ public class Paper implements PaperInterface {
 	}
 
 	@Override
-	public void replaceWithWhitespace(String textToErase, int eraserDurability) {
+	public boolean replaceWithWhitespace(String textToErase, int eraserDurability) {
 		int indexOfLastOccurenceOfTextToErase = this.textOnPaper.lastIndexOf(textToErase);
-		int numberOfLettersToErase = textToErase.length();
 
-		replacePartOfTextOnPaperWithWhitespace(indexOfLastOccurenceOfTextToErase,
-				numberOfLettersToErase, eraserDurability);
+		if (indexOfLastOccurenceOfTextToErase >= 0) {
+			int numberOfLettersToErase = textToErase.length();
+
+			replacePartOfTextOnPaperWithWhitespace(indexOfLastOccurenceOfTextToErase,
+					numberOfLettersToErase, eraserDurability);
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private void replacePartOfTextOnPaperWithOtherText(int startOfOverwrittenChunk,
