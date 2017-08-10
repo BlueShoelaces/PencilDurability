@@ -72,27 +72,31 @@ public class PencilWriterActionMenuDisplayHelperTest extends TestHelper {
 
 		MockPencil mockPencil = new MockPencil();
 
-		int length = 4;
-		mockPencil.setCurrentLength(length);
+		int pencilLength = 4;
+		int pencilDurability = 75;
+		int eraserDurability = 825;
 
-		int durability = 75;
-		mockPencil.setCurrentDurability(durability);
+		mockPencil.setCurrentLength(pencilLength);
+		mockPencil.setCurrentDurability(pencilDurability);
+		mockPencil.setEraserDurability(eraserDurability);
 
 		displayHelper.displayPencilStats(mockPencil);
 
-		String expectedStatsDisplayed = createPencilStatsDisplay(length, durability);
-		String actualSecondStatsDisplayed = this.mockOutputStream.toString();
-		String actualStatsDisplayed = actualSecondStatsDisplayed;
+		String expectedStatsDisplayed = createPencilStatsDisplay(pencilLength, pencilDurability,
+				eraserDurability);
+		String actualStatsDisplayed = this.mockOutputStream.toString();
 
 		assertEquals(expectedStatsDisplayed, actualStatsDisplayed);
 	}
 
-	private String createPencilStatsDisplay(int pencilLength, int pencilDurability) {
+	private String createPencilStatsDisplay(int pencilLength, int pencilDurability,
+			int eraserDurability) {
 		String expectedLengthText = "  Pencil length = " + pencilLength + "\n";
-		String expectedDurabilityText = "  Durability = " + pencilDurability + "\n";
+		String expectedPencilDurabilityText = "  Durability = " + pencilDurability + "\n";
+		String expectedEraserDurabilityText = "  Eraser durability = " + eraserDurability + "\n";
 
 		String expectedStatsDisplayed = "\nYOUR PENCIL:\n" + expectedLengthText
-				+ expectedDurabilityText;
+				+ expectedPencilDurabilityText + expectedEraserDurabilityText;
 		return expectedStatsDisplayed;
 	}
 }

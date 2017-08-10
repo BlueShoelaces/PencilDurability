@@ -200,21 +200,35 @@ public class PencilTest extends TestHelper {
 	}
 
 	@Test
-	public void testErase_ReducesEraserDurability_ByOneForEachCharacterErased() throws Exception {
-		int initialEraserDurability = 100;
+	public void testErase_ReducesEraserDurability_ByOneForEachCharacterErased_ExceptWhitespace()
+			throws Exception {
+		int initialEraserDurability = 200;
 		PencilInterface pencil = new Pencil(PENCIL_DURABILITY_500, PENCIL_LENGTH_5,
 				initialEraserDurability);
 		MockPaper mockPaper = new MockPaper();
 
-		String textToErase = "'The time has come,' the Walrus said, 'to talk of many things!'";
-		int numberOfCharactersToErase = textToErase.length();
+		String textToErase = "'The time has come,' the Walrus said,\n"
+				+ "'To talk of many things:\n" + "Of shoes... and ships... and sealing-wax...\n"
+				+ "Of cabbages... and kings...\n" + "\tAnd why the sea is boiling hot...\n"
+				+ "\tAnd whether pigs have wings.'";
+
+		int numberOfNonWhitespaceCharacters = findNumberOfNonWhitespaceCharacters(textToErase);
 
 		pencil.erase(mockPaper, textToErase);
 		int actualFinalEraserDurability = pencil.getEraserDurability();
 
-		int expectedFinalEraserDurability = initialEraserDurability - numberOfCharactersToErase;
+		int expectedFinalEraserDurability = initialEraserDurability
+				- numberOfNonWhitespaceCharacters;
 
 		assertEquals(expectedFinalEraserDurability, actualFinalEraserDurability);
+	}
+
+	private int findNumberOfNonWhitespaceCharacters(String text) {
+		int numberOfTotalCharacters = text.length();
+		int numberOfWhitespaceCharacters = text.split("\\s").length - 1;
+		int numberOfNonWhitespaceCharacters = numberOfTotalCharacters
+				- numberOfWhitespaceCharacters;
+		return numberOfNonWhitespaceCharacters;
 	}
 
 }

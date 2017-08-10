@@ -8,6 +8,7 @@ public class MockPencil implements PencilInterface {
 	private PaperInterface paperWrittenTo;
 	private int currentDurability = 50;
 	private int currentLength = 1;
+	private int eraserDurability = 25;
 	private PaperInterface paperErasedFrom;
 	private String textErasedFromPaper;
 	private boolean sharpenWasCalled = false;
@@ -41,8 +42,7 @@ public class MockPencil implements PencilInterface {
 
 	@Override
 	public int getEraserDurability() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.eraserDurability;
 	}
 
 	public PaperInterface getPaperWrittenTo() {
@@ -59,6 +59,10 @@ public class MockPencil implements PencilInterface {
 
 	public void setCurrentLength(int currentLength) {
 		this.currentLength = currentLength;
+	}
+
+	public void setEraserDurability(int eraserDurability) {
+		this.eraserDurability = eraserDurability;
 	}
 
 	public PaperInterface getPaperErasedFrom() {
