@@ -10,6 +10,7 @@ public class MockPaper implements PaperInterface {
 	private boolean replaceWithWhitespaceWasCalled = false;
 	private String textPassedToReplaceWithWhitespace;
 	private int eraserDurabilityPassedToReplaceWithWhitespace;
+	private String textOnPaper;
 
 	@Override
 	public void showPaper() {
@@ -55,5 +56,14 @@ public class MockPaper implements PaperInterface {
 
 	public int getEraserDurabilityPassedToReplaceWithWhitespace() {
 		return this.eraserDurabilityPassedToReplaceWithWhitespace;
+	}
+
+	@Override
+	public String getTextOnPaper() {
+		return this.textOnPaper;
+	}
+
+	public void setTextOnPaper(String textOnPaper) {
+		this.textOnPaper = textOnPaper;
 	}
 }

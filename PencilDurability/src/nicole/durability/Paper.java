@@ -5,13 +5,17 @@ public class Paper implements PaperInterface {
 	private String textOnPaper = "";
 
 	@Override
-	public void write(String stringToWriteToPaper) {
-		this.textOnPaper += stringToWriteToPaper + "\n";
+	public void write(String textToWriteToPaper) {
+		this.textOnPaper += textToWriteToPaper + "\n";
 	}
 
 	@Override
-	public void writeInWhitespaceGap(String stringToWriteToPaper) {
-
+	public void writeInWhitespaceGap(String textToWriteToPaper) {
+		int indexOfFirstWhitespaceGap = this.textOnPaper.indexOf("  ");
+		if (indexOfFirstWhitespaceGap >= 0) {
+			int indexAtWhichToStartWriting = indexOfFirstWhitespaceGap + 1;
+			replacePartOfTextOnPaperWithOtherText(indexAtWhichToStartWriting, textToWriteToPaper);
+		}
 	}
 
 	@Override
@@ -26,6 +30,22 @@ public class Paper implements PaperInterface {
 
 		replacePartOfTextOnPaperWithWhitespace(indexOfLastOccurenceOfTextToErase,
 				numberOfLettersToErase, eraserDurability);
+	}
+
+	private void replacePartOfTextOnPaperWithOtherText(int startOfOverwrittenChunk,
+			String textToWrite) {
+		int numberOfLettersToErase = textToWrite.length();
+		char[] individualLettersOnPaper = this.textOnPaper.toCharArray();
+		int endOfOverwrittenChunk = startOfOverwrittenChunk + numberOfLettersToErase;
+
+		int indexOfLetterToWrite = 0;
+		for (int indexOfLetterToOverwrite = startOfOverwrittenChunk; indexOfLetterToOverwrite < endOfOverwrittenChunk; indexOfLetterToOverwrite++) {
+			individualLettersOnPaper[indexOfLetterToOverwrite] = textToWrite
+					.charAt(indexOfLetterToWrite++);
+		}
+
+		String newTextOnPaper = new String(individualLettersOnPaper);
+		this.textOnPaper = newTextOnPaper;
 	}
 
 	private void replacePartOfTextOnPaperWithWhitespace(int startOfEraseChunk,
@@ -50,6 +70,7 @@ public class Paper implements PaperInterface {
 		this.textOnPaper = newTextOnPaper;
 	}
 
+	@Override
 	public String getTextOnPaper() {
 		return this.textOnPaper;
 	}

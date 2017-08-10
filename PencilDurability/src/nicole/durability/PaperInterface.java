@@ -10,4 +10,6 @@ public interface PaperInterface {
 
 	void replaceWithWhitespace(String textToErase, int eraserDurability);
 
+	String getTextOnPaper();
+
 }

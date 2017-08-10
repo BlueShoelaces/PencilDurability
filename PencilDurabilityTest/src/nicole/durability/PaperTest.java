@@ -45,6 +45,21 @@ public class PaperTest extends TestHelper {
 	}
 
 	@Test
+	public void testWriteInWhitespaceGap() throws Exception {
+		PaperInterface paper = new Paper();
+		paper.write("It was       at the beach. I played in the      and in the      .");
+
+		paper.writeInWhitespaceGap("sunny");
+		paper.writeInWhitespaceGap("sand");
+		paper.writeInWhitespaceGap("waves");
+		paper.writeInWhitespaceGap("don't write me!");
+
+		String expectedTextOnPaperAfterWritingInWhitespaceGaps = "It was sunny at the beach. I played in the sand and in the waves.\n";
+
+		assertEquals(expectedTextOnPaperAfterWritingInWhitespaceGaps, paper.getTextOnPaper());
+	}
+
+	@Test
 	public void testShowPaper_nothingWrittenYet() throws Exception {
 		PaperInterface paper = new Paper();
 		String expectedTextWritten = "";
